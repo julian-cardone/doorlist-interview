@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git checkout*)",
+      "Bash(git push*)",
+      "Bash(git pull *)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git worktree*)",
+      "Bash(gh issue*)",
+      "Bash(gh pr create*)",
+      "Bash(gh pr edit*)",
+      "Bash(gh pr view*)",
+      "Bash(gh pr list*)",
+      "Bash(gh pr checks*)",
+      "Bash(gh pr status*)",
+      "Bash(gh project*)",
+      "Bash(gh run*)",
+      "Bash(gh repo view*)",
+      "Bash(gh api*)",
+      "Bash(npm run lint:md*)",
+      "Bash(npm run format:md*)"
+    ],
+    "deny": [
+      "Bash(git rebase*)",
+      "Bash(git merge*)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(git branch -D*)",
+      "Bash(git branch -d*)",
+      "Bash(gh pr merge*)"
+    ]
+  },
+  "hooks": {}
+}

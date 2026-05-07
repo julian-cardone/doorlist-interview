@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# VCS
+.git/
+
+# Build output / cache
+dist/
+dist-ssr/
+build/
+.cache/
+.vite/
+*.tsbuildinfo
+
+# Lockfiles (large, low signal)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+
+# Coverage
+coverage/
+
+# Binary assets
+src/assets/*.png
+src/assets/*.jpg
+src/assets/*.jpeg
+src/assets/*.gif
+src/assets/*.webp
+public/*.svg
+
+# OS junk
+.DS_Store

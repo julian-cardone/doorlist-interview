@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output / cache
+dist/
+dist-ssr/
+build/
+.cache/
+.vite/
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Coverage / test artifacts
+coverage/
+
+# VCS
+.git/
+
+# Generated / minified
+*.min.js
+*.min.css
+*.tsbuildinfo
+
+# Static assets (often hand-tuned)
+public/
+src/assets/
