@@ -189,7 +189,7 @@ code's literal behavior.
 
 Component files must be co-located in a folder named after the component:
 
-```
+```text
 ComponentName/
   ComponentName.tsx
   ComponentName.module.css
