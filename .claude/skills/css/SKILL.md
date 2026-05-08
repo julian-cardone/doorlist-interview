@@ -1,13 +1,11 @@
 ---
 name: css
 description:
-  Use this skill whenever writing or modifying CSS in this repository. Triggers include any work on
-  `.module.css` files, the global stylesheets in `src/styles/`, any styling decision (sizing,
-  spacing, color, layout), any flex or grid layout work, any time a layout misbehaves (won't
-  scroll, content overflows, columns won't shrink), and any time a component needs a new visual
-  variant. Use this skill BEFORE writing any styles, even small tweaks — the rules around
-  parent-owned sizing, parent-owned scrolling, `min-height: 0` / `min-width: 0`, `rem` over `px`,
-  and CSS Modules are non-obvious and easy to violate by default.
+  "Use this skill whenever writing or modifying CSS in this repository. Triggers include any work on
+  .module.css files, the global stylesheets in src/styles/, any styling decision (sizing, spacing,
+  color, layout), any flex or grid layout work, any time a layout misbehaves (won't scroll, content
+  overflows, columns won't shrink), and any time a component needs a new visual variant. Use this
+  skill BEFORE writing any styles, even small tweaks."
 ---
 
 # CSS

@@ -1,14 +1,12 @@
 ---
 name: react
 description:
-  Use this skill whenever creating, modifying, or refactoring React components or the frontend
+  "Use this skill whenever creating, modifying, or refactoring React components or the frontend
   folder structure in this repository. Triggers include any request to build a component, page,
-  form, panel, modal, table, or other UI element; any work on `.tsx` files under `src/components/`,
-  `src/features/`, `src/services/`, `src/hooks/`, or `src/providers/`; any decision about where a
-  new file should live; any refactor that splits or merges components. Use this skill BEFORE writing
-  any React code, even small changes — the rules around component layering (UI primitives vs.
-  feature components), pages-as-shells, props typing, the `className` prop convention, and state
-  ownership are non-obvious and easy to violate by default.
+  form, panel, modal, table, or other UI element; any work on .tsx files under src/components/,
+  src/features/, src/services/, src/hooks/, or src/providers/; any decision about where a new file
+  should live; any refactor that splits or merges components. Use this skill BEFORE writing any
+  React code, even small changes."
 ---
 
 # React
