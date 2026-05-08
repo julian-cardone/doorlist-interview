@@ -1,0 +1,47 @@
+.base {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+/* ghost: uppercase muted label, e.g. "ADD PHOTOS" */
+.ghost {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #888;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ghost:hover {
+  color: #555;
+}
+
+/* link: accent-colored text action, e.g. "Add End Time", "See More" */
+.link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* primary: filled gradient pill, e.g. "Publish" */
+.primary {
+  background: var(--gradient-primary);
+  color: #fff;
+  border-radius: 1.25rem;
+  padding: 0.45rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+
+.primary:hover {
+  opacity: 0.88;
+}

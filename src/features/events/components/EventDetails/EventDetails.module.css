@@ -1,0 +1,121 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.host {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hostAvatar {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #34d399, #60a5fa);
+  flex-shrink: 0;
+}
+
+.onlineDot {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+.hostName {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-top: 0.25rem;
+}
+
+.detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.detailIcon {
+  display: flex;
+  align-items: center;
+  color: #666;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.detailText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.detailPrimary {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.detailSecondary {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.addressLink {
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.addressLink:hover {
+  text-decoration: underline;
+}
+
+.mapWrapper {
+  border-radius: 0.875rem;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.08);
+}
+
+.map {
+  display: block;
+  width: 100%;
+  height: 10rem;
+  border: none;
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.aboutLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.aboutText {
+  font-size: 0.875rem;
+  color: #333;
+  line-height: 1.6;
+}

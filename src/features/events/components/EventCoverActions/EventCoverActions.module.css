@@ -1,0 +1,75 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.coverImageBox {
+  width: 16.25rem;
+  aspect-ratio: 1;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.12);
+}
+
+.coverPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #a78bfa 0%, #f472b6 35%, #fb923c 60%, #fbbf24 100%);
+}
+
+.actions {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.actionItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rsvpBtn {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: #1a1a2e;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s;
+}
+
+.rsvpBtn:hover {
+  transform: scale(1.06);
+}
+
+.inviteBtn {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s;
+}
+
+.inviteBtn:hover {
+  transform: scale(1.06);
+}
+
+.actionLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #555;
+}
