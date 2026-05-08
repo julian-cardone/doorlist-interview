@@ -10,7 +10,11 @@ Open a pull request for the current branch.
    found, stop immediately and report the error.
 3. Run `git status` — if there are uncommitted changes, run
    `git add -A && git commit -m "<brief description>"`.
-4. Run `git push`.
+4. Run `git log main..HEAD --oneline` — if this returns no output and there were no uncommitted
+   changes in step 3, stop and report that there is nothing to open a PR for.
+5. Read the full diff with `git diff main..HEAD` to understand all changes before writing the PR
+   title and body. Do not guess — derive the description from the actual diff.
+6. Run `git push -u origin <branch>` (use `-u` if the remote branch does not yet exist).
 
 ## Title
 
