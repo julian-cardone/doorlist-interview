@@ -16,13 +16,7 @@
 .coverPlaceholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    #a78bfa 0%,
-    #f472b6 35%,
-    #fb923c 60%,
-    #fbbf24 100%
-  );
+  background: var(--gradient-cover);
 }
 
 .actions {
@@ -38,40 +32,30 @@
   gap: 0.4rem;
 }
 
-.rsvpBtn {
+.actionBtn {
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
-  background: #1a1a2e;
   border: none;
   cursor: pointer;
-  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.15s;
 }
 
-.rsvpBtn:hover {
+.actionBtn:hover {
   transform: scale(1.06);
+}
+
+.rsvpBtn {
+  background: #1a1a2e;
+  font-size: 1.4rem;
 }
 
 .inviteBtn {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
   background: var(--color-accent);
-  border: none;
-  cursor: pointer;
   color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.15s;
-}
-
-.inviteBtn:hover {
-  transform: scale(1.06);
 }
 
 .actionLabel {

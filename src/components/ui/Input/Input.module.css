@@ -6,19 +6,12 @@
   font-family: inherit;
 }
 
-.base::placeholder {
-  color: var(--color-text-muted);
-}
-
 /* title: large editable heading */
 .title {
-  font-size: 1.4rem;
+  font-size: 2.125rem;
+  line-height: 2.5625rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.title::placeholder {
-  color: var(--color-text);
+  vertical-align: middle;
 }
 
 /* field: compact inline input for forms */

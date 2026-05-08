@@ -7,7 +7,7 @@ const REACTION_EMOJIS = ["😊", "❤️", "🎉", "🔥", "✨"];
 export function EventCreateForm() {
   return (
     <div className={styles.form}>
-      <Input variant="title" placeholder="Event Title*" aria-label="Event title" />
+      <Input variant="title" placeholder="Event Title" aria-label="Event title" />
 
       <div className={styles.rows}>
         <div className={styles.row}>
