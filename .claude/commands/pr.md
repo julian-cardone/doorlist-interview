@@ -4,8 +4,8 @@ Open a pull request for the current branch.
 
 ## Pre-flight
 
-1. Extract `<id>` from the branch name (`issue-<id>-<slug>`). If the branch name does not match
-   this format, stop immediately and report the error. Do not create an issue.
+1. Extract `<id>` from the branch name (`issue-<id>-<slug>`). If the branch name does not match this
+   format, stop immediately and report the error. Do not create an issue.
 2. Run `gh issue view <id>` — confirm it exists and capture: title, assignees. If the issue is not
    found, stop immediately and report the error.
 3. Run `git status` — if there are uncommitted changes, run
