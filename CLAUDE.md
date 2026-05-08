@@ -1,6 +1,8 @@
 # CLAUDE.md
 
-Documentation-first repo. No application code yet. All governance lives in `docs/`.
+Vite + React + TypeScript SPA backed by Supabase. Application code lives in `src/`; governance and
+standards live in `docs/`. Skills in `.claude/skills/` front-load code-generation rules and trigger
+automatically on relevant tasks.
 
 ## Rules
 
@@ -26,3 +28,5 @@ Load only when the task requires it.
 | Merge criteria and reviewer checklist                         | `docs/process/done-criteria.md`      |
 | Workflow definitions and what each CI job checks              | `docs/process/ci-pipeline.md`        |
 | Approved tools, their purpose, and rationale                  | `docs/technologies/stack.md`         |
+| Supabase data model, RLS, frontend integration                | `docs/technologies/supabase.md`      |
+| Vercel hosting, build configuration, deployment               | `docs/technologies/vercel.md`        |
