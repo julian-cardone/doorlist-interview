@@ -40,6 +40,81 @@ See `docs/standards/frontend-philosophy.md` for the full rules on component laye
 
 These are the rules that are easiest to get wrong and hardest to spot in review. Internalize them.
 
+### Pages are shells
+
+A page component contains exactly three things:
+
+1. **The surface** — background color, background image, or gradient overlay.
+2. **The layout container** — max-width, padding, and the top-level flex/grid arrangement of content
+   areas (with their sizing: `flex: 1`, `flex-shrink: 0`, etc.).
+3. **Feature component instances** — one per content area.
+
+Everything else — form rows, detail panels, action buttons, interactive state — belongs in a feature
+component under `src/features/<feature>/components/`.
+
+```tsx
+// WRONG — page owns content
+export default function EventViewPage() {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div className={styles.page}>
+      <h1>{event.title}</h1>
+      <p>{event.description}</p>
+      {/* ... 60 more lines ... */}
+    </div>
+  );
+}
+
+// RIGHT — page is a shell
+export default function EventViewPage() {
+  return (
+    <div className={styles.page}>
+      <div className={styles.bgGradient} aria-hidden="true" />
+      <div className={styles.layout}>
+        <div className={styles.detailsArea}>
+          <EventDetails />
+        </div>
+        <div className={styles.coverArea}>
+          <EventCoverActions />
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+**When to extract from a page to a feature component:** any block of JSX that has its own state,
+manages a workflow, or is a distinct visual section (card, panel, detail list, action group). If you
+find yourself writing more than a handful of lines of content directly in a page, stop and extract.
+
+### No `px` — use `rem`
+
+All CSS sizing must use `rem`, not `px`. This keeps values consistent with the user's font size
+preference and avoids brittle fixed pixel math.
+
+```css
+/* WRONG */
+.avatar {
+  width: 24px;
+  height: 24px;
+}
+.card {
+  border-radius: 16px;
+}
+
+/* RIGHT */
+.avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.card {
+  border-radius: 1rem;
+}
+```
+
+Common conversions (assuming 16px base): `4px → 0.25rem`, `8px → 0.5rem`, `12px → 0.75rem`,
+`16px → 1rem`, `24px → 1.5rem`, `32px → 2rem`. Use a calculator for odd values; never round.
+
 ### CSS Modules only
 
 - One `.module.css` file per component, co-located in the component folder.
@@ -216,6 +291,7 @@ much and should be split.
 
 - [ ] Lives in the right folder (`components/ui/` vs `features/<feature>/components/`)
 - [ ] Has a co-located `.module.css` file (no inline styles, no global CSS)
+- [ ] No CSS `px` values — all sizing in `rem`
 - [ ] Doesn't set its own width, height, or max-width
 - [ ] Doesn't declare its own overflow
 - [ ] Doesn't fetch data (unless it's a page or a workflow-owning pane)
@@ -223,6 +299,7 @@ much and should be split.
 - [ ] Name describes its responsibility (generic for primitives, specific for features)
 - [ ] State lives at the lowest reasonable owner
 - [ ] Doesn't have boolean flags that change its behavior fundamentally
+- [ ] Page components are layout wrappers — background, container, content sections only
 
 ## Reference
 

@@ -1,0 +1,38 @@
+.page {
+  min-height: 100vh;
+  background: #fff;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bgGradient {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 58vh;
+  background-image: url("/gradient-bg-view.png");
+  background-size: cover;
+  background-position: center top;
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  pointer-events: none;
+}
+
+.layout {
+  position: relative;
+  display: flex;
+  gap: 3rem;
+  max-width: 53.75rem;
+  margin: 0 auto;
+  padding: 3rem 2rem 4rem;
+}
+
+/* Page owns the sizing of each column */
+
+.detailsArea {
+  flex: 1;
+  min-width: 0;
+}
+
+.coverArea {
+  flex-shrink: 0;
+}
