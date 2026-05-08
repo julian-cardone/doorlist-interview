@@ -3,11 +3,12 @@ title: CSS Standards
 doc_type: standard
 status: draft
 owners: ["@julian-cardone"]
-last_reviewed: 2026-05-07
+last_reviewed: 2026-05-08
 related:
   [
     "docs/standards/frontend-philosophy.md",
     "docs/standards/project-structure.md",
+    "docs/standards/layout.md",
     "docs/standards/documentation.md",
   ]
 tags: [standards]
@@ -19,7 +20,8 @@ This document defines the conventions for styling React components. It covers th
 sizing and overflow ownership, variants, file placement, and class naming.
 
 For component design principles, see [Frontend Philosophy](./frontend-philosophy.md). For folder
-layout, see [Project Structure](./project-structure.md).
+layout, see [Project Structure](./project-structure.md). For flex layout patterns and scroll
+ownership recipes, see [Layout](./layout.md).
 
 ---
 
@@ -44,9 +46,40 @@ Global CSS is restricted to:
 - A `variables.css` file (or equivalent) defining design tokens, including colors, spacing, radii,
   shadows, and font definitions.
 
+Global styles must only be introduced when the rule is genuinely global. A rule that applies to a
+single component or feature must not be placed in a global file.
+
 Inline `style` attributes must not be used except when the value is genuinely dynamic and cannot be
 expressed through a class. Examples of acceptable inline use include positioning values computed
 from runtime measurement and animation delays derived from element index.
+
+---
+
+## Units
+
+All CSS sizing must use `rem`, not `px`. This keeps values consistent with the user's font-size
+preference and avoids brittle pixel math.
+
+```css
+/* Disallowed */
+.avatar {
+  width: 24px;
+  height: 24px;
+}
+
+/* Allowed */
+.avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+```
+
+Common conversions, assuming a 16px base: `4px → 0.25rem`, `8px → 0.5rem`, `12px → 0.75rem`,
+`16px → 1rem`, `24px → 1.5rem`, `32px → 2rem`. Odd values must be calculated, not rounded.
+
+`px` is permitted only for values that are conceptually pixel-bound, such as a `1px` hairline
+border, and for properties where `rem` is meaningless, such as `box-shadow` blur radii on extremely
+small values.
 
 ---
 
@@ -58,7 +91,7 @@ concern and is owned by the parent.
 ```css
 /* Disallowed: the component declares its own width. */
 .button {
-  width: 200px;
+  width: 12.5rem;
 }
 
 /* Allowed: the component declares only its intrinsic shape. */
@@ -75,6 +108,10 @@ The parent decides external sizing by means of its own layout — flex, grid, or
 width. The same component must function unchanged inside a flex container, a grid cell, or a
 fixed-width wrapper.
 
+Parents adjust a child's external presentation by passing a `className` prop, not by overriding the
+child's internal styles. See [Frontend Philosophy](./frontend-philosophy.md) for the `className`
+prop convention.
+
 ---
 
 ## Parent-Owned Scrolling
@@ -86,7 +123,7 @@ by the wrapping page or pane.
 /* Disallowed: the table declares its own scroll boundary. */
 .tableBody {
   overflow-y: auto;
-  max-height: 400px;
+  max-height: 25rem;
 }
 
 /* Allowed: the table renders structure; the wrapper handles overflow. */
@@ -97,6 +134,28 @@ by the wrapping page or pane.
 
 This rule allows a single table or list component to function inside a fixed-height pane, a
 fully-scrolling page, or a modal without modification.
+
+Each scrollable area must have exactly one scroll container. Page scroll, panel scroll, and
+component-internal scroll must not stack within the same area. The recipes for assigning scroll
+ownership are in [Layout](./layout.md).
+
+---
+
+## Layout Ownership Summary
+
+The division of responsibility for layout concerns is:
+
+| Concern                              | Owner                 |
+| ------------------------------------ | --------------------- |
+| External width, height, max-width    | Parent (page or pane) |
+| Overflow and scroll boundaries       | Parent (page or pane) |
+| Clipping                             | Parent (page or pane) |
+| Intrinsic shape (padding, gap, etc.) | Component itself      |
+| Variant styling                      | Component itself      |
+
+Reusable components must fill width naturally, structure their content, expose variants, and avoid
+viewport assumptions. The full set of layout patterns — including the `min-height: 0` and
+`min-width: 0` rules that govern flex shrinking — is documented in [Layout](./layout.md).
 
 ---
 

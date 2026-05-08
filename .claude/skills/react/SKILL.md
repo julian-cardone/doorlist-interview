@@ -1,22 +1,27 @@
 ---
-name: frontend
+name: react
 description:
-  Use this skill whenever creating, modifying, or refactoring React components, CSS, or frontend
+  Use this skill whenever creating, modifying, or refactoring React components or the frontend
   folder structure in this repository. Triggers include any request to build a component, page,
-  form, panel, modal, table, or other UI element; any work on `.tsx`, `.module.css`, or files under
-  `src/components/`, `src/features/`, `src/services/`, `src/hooks/`, or `src/providers/`; any
-  styling work; any decision about where a new file should live. Use this skill BEFORE writing any
-  frontend code, even for small changes — the rules around parent-owned sizing, component layering,
-  and CSS Modules are non-obvious and easy to violate by default.
+  form, panel, modal, table, or other UI element; any work on `.tsx` files under `src/components/`,
+  `src/features/`, `src/services/`, `src/hooks/`, or `src/providers/`; any decision about where a
+  new file should live; any refactor that splits or merges components. Use this skill BEFORE writing
+  any React code, even small changes — the rules around component layering (UI primitives vs.
+  feature components), pages-as-shells, props typing, the `className` prop convention, and state
+  ownership are non-obvious and easy to violate by default.
 ---
 
-# Frontend
+# React
 
-This skill encodes the frontend standards for this repository. Apply these rules to every component,
-every CSS file, and every new folder.
+This skill encodes the React component standards for this repository. Apply these rules to every
+component, every props type, and every new file.
 
-The full standards live in `docs/standards/`. This skill front-loads the rules that matter most at
-the moment of code generation. When something is ambiguous, consult the linked standards.
+The full standards live in `docs/standards/frontend-philosophy.md` and
+`docs/standards/project-structure.md`. This skill front-loads the rules that matter most at the
+moment of code generation. When something is ambiguous, consult the linked standards.
+
+For styling and layout (`min-height: 0`, parent-owned scrolling, `rem`, CSS Modules), see the `css`
+skill.
 
 ## Before writing any component
 
@@ -34,11 +39,7 @@ models and own workflow state.
 If a component is used by only one feature, it lives in that feature. Promote to `components/ui/`
 only when a second feature actually needs it.
 
-See `docs/standards/frontend-philosophy.md` for the full rules on component layers.
-
 ## Hard rules — never violate
-
-These are the rules that are easiest to get wrong and hardest to spot in review. Internalize them.
 
 ### Pages are shells
 
@@ -87,92 +88,56 @@ export default function EventViewPage() {
 manages a workflow, or is a distinct visual section (card, panel, detail list, action group). If you
 find yourself writing more than a handful of lines of content directly in a page, stop and extract.
 
-### No `px` — use `rem`
+### Every component has a typed props interface
 
-All CSS sizing must use `rem`, not `px`. This keeps values consistent with the user's font size
-preference and avoids brittle fixed pixel math.
+Untyped props or implicit `any` are disallowed. Every component declares a props type.
 
-```css
-/* WRONG */
-.avatar {
-  width: 24px;
-  height: 24px;
-}
-.card {
-  border-radius: 16px;
-}
+```tsx
+type ButtonProps = {
+  variant: "primary" | "secondary";
+  onClick: () => void;
+  children: ReactNode;
+  className?: string;
+};
 
-/* RIGHT */
-.avatar {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-.card {
-  border-radius: 1rem;
+export function Button({ variant, onClick, children, className }: ButtonProps) {
+  /* ... */
 }
 ```
 
-Common conversions (assuming 16px base): `4px → 0.25rem`, `8px → 0.5rem`, `12px → 0.75rem`,
-`16px → 1rem`, `24px → 1.5rem`, `32px → 2rem`. Use a calculator for odd values; never round.
+Small components may declare the props type inline in the same file. Components large enough to
+justify a `.types.ts` file place the props type there.
 
-### CSS Modules only
+### Reusable components accept and forward `className`
 
-- One `.module.css` file per component, co-located in the component folder.
-- No inline `style={{...}}` attributes unless the value is genuinely runtime-dynamic (e.g. animation
-  delay computed from index).
-- No global CSS except `src/styles/globals.css` (resets, base typography) and
-  `src/styles/variables.css` (design tokens).
-- No BEM. CSS Module scoping makes it redundant. Use camelCase variants: `buttonPrimary`, not
-  `button--primary`.
+Reusable components accept an optional `className` prop and forward it to their root element. This
+is the supported mechanism for parents to adjust external presentation:
 
-### Parent owns sizing
+```tsx
+type CardProps = {
+  className?: string;
+  children: ReactNode;
+};
 
-Components must not set their own `width`, `height`, or `max-width`.
-
-```css
-/* WRONG */
-.button {
-  width: 200px;
-}
-
-/* RIGHT — only intrinsic shape */
-.button {
-  padding: 0.5rem 1rem;
+export function Card({ className, children }: CardProps) {
+  return <div className={`${styles.card} ${className ?? ""}`}>{children}</div>;
 }
 ```
 
-The parent decides external size through its own layout (flex, grid, or wrapper width). The same
-component must work in a flex container, a grid cell, and a fixed-width wrapper without
-modification.
+Parents use `className` rather than overriding the child's internal classes through descendant
+selectors. The child remains in control of its internal structure; the parent supplies external
+adjustments such as margin or sizing within the parent's layout.
 
-Intrinsic sizing (padding, line-height, gap) is fine — that's the component's internal shape, not
-its external footprint.
-
-### Parent owns scrolling
-
-Components must not declare their own overflow behavior.
-
-```css
-/* WRONG */
-.tableBody {
-  overflow-y: auto;
-  max-height: 400px;
-}
-
-/* RIGHT — wrapper handles overflow */
-.tableBody {
-  /* no overflow rules */
-}
-```
-
-The wrapping page or pane decides whether content scrolls and where the scroll boundary is.
+The `className` prop must not be used to redefine the component's intrinsic shape (padding,
+typography, variants). Those concerns belong to the component itself.
 
 ### No data fetching in primitives or tables
 
-- `components/ui/` primitives never fetch.
+- `components/ui/` primitives never fetch data, never reference domain models, never make permission
+  decisions.
 - Tables render rows and call callbacks. They never fetch.
-- All Supabase access goes through `src/services/events/`. Components never import the Supabase
-  client directly.
+- All API access goes through `src/services/<service>/`. Components never import API clients
+  directly.
 
 ### No `snake_case` in components
 
@@ -182,19 +147,43 @@ camelCase frontend types.
 
 ## State ownership
 
-Put state at the lowest component that reasonably owns it:
+State lives at the lowest component that reasonably owns it.
 
 - **Form values** — owned by the form component.
 - **Selected items / modal open state** — owned by the pane that manages the workflow.
-- **Page-level data (fetched results, current selection)** — owned by the page component.
+- **Page-level data (fetched results, current selection, route params)** — owned by the page
+  component.
 - **Cross-cutting state (theme, current user)** — lifted into a context provider in
   `src/providers/`.
 
 Do not duplicate state. If a hook owns data, components consume the hook — they don't shadow it with
-another `useState`.
+another `useState`. Independent caching or transformation is the only justification for parallel
+state.
 
 Context is for genuinely cross-cutting concerns. Do not use context just to skip prop passing two
 levels.
+
+## Forms
+
+Form components own field values, validation state, and the shape of submission data.
+
+Parent components own the consequences of submission — API calls, navigation, success state. A clear
+or reset action must reset form state and invoke an `onClear` callback so the parent can clear
+derived state.
+
+## Tables
+
+Table components render rows and columns and invoke callbacks. They must not fetch data or own
+workflow state.
+
+Tables accept:
+
+- The rows or items to render.
+- Selected identifiers, when selection is supported.
+- Callbacks for row-level actions (`onSelect`, `onPreview`, `onAction`).
+
+The component wrapping a table owns the workflow state — loading, errors, modals, selected
+identifiers.
 
 ## Naming
 
@@ -212,6 +201,8 @@ A component does one specific job. If you find yourself adding boolean flags lik
 `useAlternateLayout` to an existing component, split the component instead.
 
 ## File layout
+
+Component files are co-located in a folder named after the component:
 
 ```text
 ComponentName/
@@ -233,12 +224,21 @@ src/
     components/<ComponentName>/       # feature components
     hooks/                            # feature-scoped hooks
     lib/                              # feature-scoped pure logic
+    models/                           # feature domain types
     pages/                            # routed pages
   services/<service>/                 # API integration + mappers
   hooks/                              # cross-cutting hooks
   providers/                          # context providers
-  styles/                             # globals.css, variables.css
+  styles/                             # reset.css, globals.css, variables.css
+
+  App.tsx                             # root layout, renders <Outlet />
+  router.tsx                          # route definitions
+  index.tsx                           # DOM entry, mounts router, imports global styles
 ```
+
+`App.tsx`, `router.tsx`, and `index.tsx` are the only `.tsx` files permitted directly under `src/`.
+Each owns one concern: `index.tsx` mounts the router, the router renders `App`, `App` renders the
+current route.
 
 Rules:
 
@@ -248,7 +248,23 @@ Rules:
 - No `features/shared/`. Cross-feature primitives belong in `components/ui/`.
 - No catch-all `utils/`. Group utilities by category into named files.
 
-See `docs/standards/project-structure.md` for the full rules.
+## Imports
+
+Imports use a feature or service's public surface (`features/events`, `services/events`) rather than
+reaching into internal files. An `index.ts` at each boundary defines the public surface.
+
+Within a feature, relative imports between sibling files are permitted.
+
+## Hooks and providers
+
+Cross-cutting hooks live in `src/hooks/` (e.g. `useDebounce`, `useMediaQuery`). Feature-scoped hooks
+live in `features/<feature>/hooks/` (e.g. `useEvent`, `useRsvp`).
+
+A hook used by only one feature lives in that feature. Promotion to `src/hooks/` requires use by a
+second feature.
+
+Context providers live in `src/providers/`. The hooks that read from each provider live alongside
+the provider.
 
 ## Abstraction
 
@@ -256,53 +272,39 @@ Before extracting a shared component or utility, all three must be true:
 
 1. The repeated structure is stable and unlikely to diverge.
 2. The abstraction is simpler than the duplication it replaces.
-3. The abstraction makes the next feature easier.
+3. The abstraction makes the next feature easier to implement.
 
 Two similar components are fine. Three is when to look for the pattern.
 
 Do not preemptively build a generic `DataTable`, universal `Pane`, or unified form engine. These
 almost always grow into worse problems than the duplication they were meant to solve.
 
-## Variants
+## Comments
 
-When a primitive has a stable set of visual modes, use variants:
+Comments must explain why code exists or what invariant it preserves. Comments must not narrate the
+code's literal behavior.
 
-```tsx
-<Button variant="primary" />
-<Button variant="secondary" />
+```ts
+/**
+ * Returns the canonical identity for a row, used to deduplicate across paginated requests.
+ */
 ```
-
-```css
-.button {
-  /* base */
-}
-.buttonPrimary {
-  /* primary variant */
-}
-.buttonSecondary {
-  /* secondary variant */
-}
-```
-
-Two or three variants per primitive is healthy. Five or more is a sign the component is doing too
-much and should be split.
 
 ## Quick checklist before submitting a component
 
 - [ ] Lives in the right folder (`components/ui/` vs `features/<feature>/components/`)
-- [ ] Has a co-located `.module.css` file (no inline styles, no global CSS)
-- [ ] No CSS `px` values — all sizing in `rem`
-- [ ] Doesn't set its own width, height, or max-width
-- [ ] Doesn't declare its own overflow
+- [ ] Has a typed props interface
+- [ ] Reusable components accept and forward an optional `className` prop
 - [ ] Doesn't fetch data (unless it's a page or a workflow-owning pane)
 - [ ] No `snake_case` field references
 - [ ] Name describes its responsibility (generic for primitives, specific for features)
 - [ ] State lives at the lowest reasonable owner
-- [ ] Doesn't have boolean flags that change its behavior fundamentally
-- [ ] Page components are layout wrappers — background, container, content sections only
+- [ ] No boolean flags that fundamentally change behavior — split instead
+- [ ] Page components are layout shells: surface, container, feature component instances only
+- [ ] Co-located in a folder named after the component
 
 ## Reference
 
-- `docs/standards/frontend-philosophy.md` — component layers, state, abstraction, naming
-- `docs/standards/css.md` — CSS Modules, sizing, scrolling, variants
-- `docs/standards/project-structure.md` — folders, services, when to add new features
+- `docs/standards/frontend-philosophy.md` — component layers, state, abstraction, naming, pages as
+  shells, props typing, the `className` convention
+- `docs/standards/project-structure.md` — folders, services, when to add new features, app entry

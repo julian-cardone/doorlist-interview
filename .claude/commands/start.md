@@ -10,10 +10,13 @@ Argument may be a short phrase or a long description of intent. Derive:
 
 ## 2 — Create the issue
 
+Derive a short description from the argument: one or two sentences, cleaned up for grammar and
+clarity, describing what will be done and why. Use this as the issue body.
+
 ```bash
 gh issue create \
   --title "<title>" \
-  --body ""
+  --body "<description derived from argument>"
 ```
 
 Note the issue number from the output URL.

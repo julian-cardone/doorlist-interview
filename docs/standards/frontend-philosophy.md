@@ -3,11 +3,12 @@ title: Frontend Philosophy
 doc_type: standard
 status: draft
 owners: ["@julian-cardone"]
-last_reviewed: 2026-05-07
+last_reviewed: 2026-05-08
 related:
   [
     "docs/standards/css.md",
     "docs/standards/project-structure.md",
+    "docs/standards/layout.md",
     "docs/standards/documentation.md",
   ]
 tags: [standards]
@@ -19,7 +20,8 @@ This document defines the principles governing component design, state ownership
 naming in frontend code. It applies to all React components and supporting modules.
 
 For CSS conventions, see [CSS Standards](./css.md). For folder layout and module organization, see
-[Project Structure](./project-structure.md).
+[Project Structure](./project-structure.md). For flex layout and scroll ownership patterns, see
+[Layout](./layout.md).
 
 ---
 
@@ -71,6 +73,64 @@ Feature components must use names that describe their domain responsibility.
 
 ---
 
+## Pages Are Shells
+
+A page component is a layout shell. Workflow logic, content rendering, and state management belong
+in feature components.
+
+A page component contains exactly three things:
+
+1. The surface — background color, background image, or gradient overlay.
+2. The layout container — `max-width`, padding, and the top-level flex or grid arrangement of
+   content areas, including their sizing rules (`flex: 1`, `flex-shrink: 0`).
+3. Feature component instances, one per content area.
+
+```tsx
+/* Disallowed: the page renders content directly. */
+export default function EventViewPage() {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div className={styles.page}>
+      <h1>{event.title}</h1>
+      <p>{event.description}</p>
+      {/* ... 60 more lines of content ... */}
+    </div>
+  );
+}
+
+/* Required: the page wires feature components into a layout. */
+export default function EventViewPage() {
+  return (
+    <div className={styles.page}>
+      <div className={styles.surface} aria-hidden="true" />
+      <div className={styles.layout}>
+        <div className={styles.detailsArea}>
+          <EventDetails />
+        </div>
+        <div className={styles.coverArea}>
+          <EventCoverActions />
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+A block of JSX inside a page component must be extracted to a feature component when any of the
+following are true:
+
+- It owns its own state.
+- It manages a workflow.
+- It is a distinct visual section, such as a card, panel, detail list, or action group.
+
+If a page accumulates more than a handful of lines of content directly, the content must be
+extracted.
+
+Page-level state — fetched data, current selection, route parameters — remains owned by the page and
+is passed to feature components as props. The page does not render the data itself.
+
+---
+
 ## State Ownership
 
 State must live at the lowest component that reasonably owns it.
@@ -89,6 +149,52 @@ only justification for parallel state.
 State that is not owned by a single component must be lifted into a context provider. Context is
 intended for cross-cutting concerns such as theme, authentication, and current user. Context must
 not be used as a substitute for short-distance prop passing.
+
+---
+
+## Props and Typing
+
+Every component must declare a typed props interface. Untyped or implicit `any` props are
+disallowed.
+
+```tsx
+type ButtonProps = {
+  variant: "primary" | "secondary";
+  onClick: () => void;
+  children: ReactNode;
+  className?: string;
+};
+
+export function Button({ variant, onClick, children, className }: ButtonProps) {
+  /* ... */
+}
+```
+
+Small components may declare their props type inline within the component file. Components large
+enough to justify a `.types.ts` file must place the props type there.
+
+### The `className` Prop
+
+Reusable components must accept an optional `className` prop and forward it to their root element.
+This is the supported mechanism by which a parent adjusts the external presentation of a child.
+
+```tsx
+type CardProps = {
+  className?: string;
+  children: ReactNode;
+};
+
+export function Card({ className, children }: CardProps) {
+  return <div className={`${styles.card} ${className ?? ""}`}>{children}</div>;
+}
+```
+
+Parents must use `className` rather than overriding the child's internal classes through descendant
+selectors. The child remains in control of its internal structure; the parent supplies external
+adjustments such as margin, sizing within the parent's layout, or feature-specific decoration.
+
+The `className` prop must not be used to redefine the component's intrinsic shape (padding,
+typography, variants). Those concerns belong to the component itself.
 
 ---
 
@@ -115,6 +221,9 @@ Abstractions must not be introduced for:
 - A single universal `Pane` covering all section types.
 - A unified form engine.
 - Selection logic shared across unrelated features.
+
+Two similar components are acceptable. Three is the threshold at which a shared pattern should be
+considered.
 
 ---
 
