@@ -70,8 +70,8 @@
   font-weight: 500;
 }
 
-.locationInput {
-  flex: 1;
+.pillField {
+  margin: 0.25rem 0;
 }
 
 .bottomBar {
