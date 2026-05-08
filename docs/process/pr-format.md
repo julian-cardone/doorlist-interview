@@ -11,25 +11,25 @@ tags: [workflow, git, process]
 # Pull Request Format
 
 This document defines how to structure a pull request. For the criteria that must be satisfied
-before merging, see [Definition of Done](./done-criteria.md).
+before merging, see [Definition of Done](./done-criteria.md). For the branching and merge model, see
+[Git Workflow](./git-workflow.md).
 
-The repository uses squash merge. Every pull request becomes a single commit on `main`, and the pull
-request title becomes the squash commit message. Individual development commits are unconstrained
-and do not appear in permanent history.
+The pull request title becomes the squash commit message on `main`. Individual development commits
+are unconstrained and do not appear in permanent history.
 
 ---
 
 ## Title
 
-Titles are plain descriptive sentences that summarize the change. Use sentence case. No prefixes,
-no type or scope tags.
+Titles are plain descriptive sentences that summarize the change. Use sentence case. No prefixes, no
+type or scope tags.
 
 Examples:
 
 ```text
 Add capabilities and constraints documents
 Fix required file paths in doc-checks workflow
-Correct broken cross-reference in ADR-0004
+Correct broken cross-reference in onboarding doc
 ```
 
 The title is the permanent commit record. It must accurately summarize the change.

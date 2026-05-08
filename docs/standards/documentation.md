@@ -3,13 +3,8 @@ title: Documentation Standards
 doc_type: standard
 status: accepted
 owners: ["@julian-cardone"]
-last_reviewed: 2026-05-02
-related:
-  [
-    "docs/adrs/0001-documentation-structure.md",
-    "docs/process/doc-governance.md",
-    "docs/agents/constraints.md",
-  ]
+last_reviewed: 2026-05-07
+related: ["docs/process/doc-governance.md", "docs/agents/constraints.md"]
 tags: [documentation, standards]
 ---
 
@@ -34,8 +29,8 @@ including search, indexing, lifecycle tracking, and AI reasoning.
 ```yaml
 ---
 title: <Human-readable document title>
-doc_type: <adr | architecture | agent | process | standard | technology | onboarding>
-status: <proposed | draft | accepted | deprecated | superseded>
+doc_type: <architecture | agent | process | standard | technology | onboarding>
+status: <draft | accepted | deprecated | superseded>
 owners: ["@github-handle"]
 last_reviewed: YYYY-MM-DD
 related: []
@@ -59,7 +54,6 @@ The semantic category of the document. Must correspond to the folder the documen
 
 | Value          | Folder               |
 | -------------- | -------------------- |
-| `adr`          | `docs/adrs/`         |
 | `architecture` | `docs/architecture/` |
 | `agent`        | `docs/agents/`       |
 | `process`      | `docs/process/`      |
@@ -73,7 +67,6 @@ The lifecycle state of the document.
 
 | Value        | Meaning                                                             |
 | ------------ | ------------------------------------------------------------------- |
-| `proposed`   | Under review, not yet authoritative. Primarily used for ADRs.       |
 | `draft`      | Still evolving. Not yet authoritative.                              |
 | `accepted`   | Authoritative and current.                                          |
 | `deprecated` | No longer valid. Retained for history.                              |
@@ -101,12 +94,8 @@ File paths to related documents. Enables agents to navigate the document graph e
 than by inference. May be an empty array (`[]`) but must be present.
 
 ```yaml
-related: ["docs/adrs/0001-documentation-structure.md", "docs/process/git-workflow.md"]
+related: ["docs/process/doc-governance.md", "docs/process/git-workflow.md"]
 ```
-
-For documents with `doc_type: adr`, the `related` field must only contain paths to other ADRs. ADRs
-must not link to documentation, configuration, or any implementation artifact, as these drift and
-would require superseding an otherwise valid ADR.
 
 #### `tags` (required)
 

@@ -3,11 +3,14 @@ title: Technology Stack
 doc_type: technology
 status: accepted
 owners: ["@julian-cardone"]
-last_reviewed: 2026-04-27
+last_reviewed: 2026-05-07
 related:
   [
-    "docs/adrs/0003-ai-assisted-development.md",
-    "docs/adrs/0004-repository-tooling-stack.md",
+    "docs/technologies/supabase.md",
+    "docs/technologies/vercel.md",
+    "docs/standards/frontend-philosophy.md",
+    "docs/standards/css.md",
+    "docs/standards/project-structure.md",
     "docs/process/ci-pipeline.md",
     "docs/agents/capabilities.md",
   ]
@@ -20,10 +23,54 @@ This document defines the approved tooling stack for this repository. It covers 
 tool and the rationale for its inclusion. It is the authoritative reference for what tools are in
 use and why.
 
-For the architectural decisions that led to this stack, see
-[ADR-0004: Repository Tooling Stack](../adrs/0004-repository-tooling-stack.md). For how these tools
-are configured in CI, see [CI Pipeline](../process/ci-pipeline.md). For how agents interact with
-these tools, see [Agent Capabilities](../agents/capabilities.md).
+For how these tools are configured in CI, see [CI Pipeline](../process/ci-pipeline.md). For how
+agents interact with these tools, see [Agent Capabilities](../agents/capabilities.md).
+
+---
+
+## Frontend
+
+### React
+
+React is the UI framework for this project. All views and components are built as React functional
+components.
+
+### Vite
+
+Vite is the build tool and development server. It compiles the TypeScript and React source into the
+static SPA bundle deployed to Vercel.
+
+### TypeScript
+
+TypeScript is the language for all source code. Type definitions live alongside the code they
+describe, with separate `.types.ts` files extracted only when warranted by size.
+
+### CSS Modules
+
+Component styles use CSS Modules. The conventions governing styling are defined in
+[CSS Standards](../standards/css.md).
+
+---
+
+## Backend
+
+### Supabase
+
+Supabase provides the Postgres database and the auto-generated REST API used by the frontend. The
+public anonymous client is the only access path. No custom backend code exists in this project.
+
+For the data model, environment variables, and integration details, see [Supabase](./supabase.md).
+
+---
+
+## Hosting and Deployment
+
+### Vercel
+
+Vercel hosts the production deployment and produces preview deployments for every branch. It builds
+the Vite SPA on every push and serves the resulting static assets.
+
+For build configuration, environment variables, and routing details, see [Vercel](./vercel.md).
 
 ---
 
@@ -62,15 +109,6 @@ Use `@workspace` when the goal is understanding, not making changes.
 GitHub is the authoritative platform for version control, pull request review, and project
 management. It is the single system of record for all repository changes and project state.
 
-The decision to use GitHub for project management is documented in
-[ADR-0002: GitHub for Project Management](../adrs/0002-github-for-project-management.md).
-
-### Dependabot
-
-Dependabot provides automated dependency management. It opens pull requests to update dependencies
-when new versions are available. No manual configuration is required beyond the repository-level
-Dependabot settings.
-
 ---
 
 ## CI and Automation
@@ -91,41 +129,13 @@ runs, see [CI Pipeline](../process/ci-pipeline.md).
 
 ### Prettier
 
-Prettier is the general-purpose formatter for this repository. It handles automatic formatting of
-the following file types:
-
-- Markdown.
-
-Prettier is configured to run on save in VS Code via `.vscode/settings.json`. Configuration lives in
-`.prettierrc.json`. Files excluded from formatting are listed in `.prettierignore`.
-
----
-
-## Documentation Validation
-
-### markdownlint-cli2
-
-`markdownlint-cli2` validates Markdown structure across all `.md` files. It enforces heading
-hierarchy, block spacing, and other structural rules. Configuration lives in
-`.markdownlint-cli2.yaml`.
-
-### Vale
-
-Vale is configured as a prose quality enforcement tool. The base configuration in `.vale.ini` skips
-YAML frontmatter blocks. Vale requires style packages before it will enforce prose rules — style
-setup is project-specific. No styles are currently active. Vale enforcement is inactive.
-
-### markdown-link-check
-
-`markdown-link-check` validates that all hyperlinks in Markdown files resolve correctly. It runs in
-CI on changes to `docs/` and `README.md`, and will fail a pull request if any link is broken. This
-is the primary guard against documentation link rot.
+Prettier is installed as a devDependency and used to format Markdown files. No project-level
+configuration file is checked in; Prettier defaults apply.
 
 ---
 
 ## Adding or Replacing Tools
 
 Tool additions or replacements that change the scope of the approved stack require an update to this
-document and a corresponding PR. If the change represents a significant architectural shift, a new
-ADR should be considered. Individual configuration changes do not require an update to this
+document and a corresponding PR. Individual configuration changes do not require an update to this
 document.

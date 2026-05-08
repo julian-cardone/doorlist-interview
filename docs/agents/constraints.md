@@ -3,7 +3,7 @@ title: Agent Constraints
 doc_type: agent
 status: accepted
 owners: ["@julian-cardone"]
-last_reviewed: 2026-05-02
+last_reviewed: 2026-05-07
 related: ["docs/agents/capabilities.md", "docs/process/ownership.md"]
 tags: [ai-agent, governance, tooling]
 ---
@@ -32,14 +32,13 @@ Agents must not:
   [Documentation Standards](../standards/documentation.md)
 - Duplicate information that already exists in another document
 - Delete or deprecate documents
-- Modify accepted ADRs — new decisions require a new ADR
 - Change document status without explicit instruction
 
 ## Scope Constraints
 
 Agents must not:
 
-- Make architectural decisions unilaterally — these require an ADR and human review
+- Make architectural decisions unilaterally — these require human review
 - Introduce dependencies, languages, or frameworks without explicit instruction
 - Take irreversible actions without explicit confirmation from a human contributor
 - Act on ambiguous instructions — when intent is unclear, stop and ask for clarification

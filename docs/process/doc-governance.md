@@ -3,14 +3,9 @@ title: Documentation Governance
 doc_type: process
 status: accepted
 owners: ["@julian-cardone"]
-last_reviewed: 2026-05-01
+last_reviewed: 2026-05-07
 related:
-  [
-    "docs/standards/documentation.md",
-    "docs/agents/constraints.md",
-    "docs/process/git-workflow.md",
-    "docs/adrs/0001-documentation-structure.md",
-  ]
+  ["docs/standards/documentation.md", "docs/agents/constraints.md", "docs/process/git-workflow.md"]
 tags: [documentation, governance, process]
 ---
 
@@ -73,19 +68,11 @@ A document is marked `superseded` when it has been replaced by another document.
 must link to the replacement. A note must be added at the top of the document identifying the
 replacement.
 
-### ADR-specific: `proposed` → `accepted`
-
-ADRs begin as `proposed` while under review. They move to `accepted` once a decision is confirmed
-via PR approval. This is the only document type that uses `proposed` status.
-
 ---
 
 ## Deletion Rules
 
 Documentation must not be deleted unless it meets the criteria below.
-
-ADRs must never be deleted. If an ADR is no longer valid, its status must be updated to `deprecated`
-or `superseded`.
 
 A document may be deleted when all of the following are true:
 
