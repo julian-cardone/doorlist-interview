@@ -9,7 +9,7 @@
   position: absolute;
   inset: 0 0 auto 0;
   height: 58vh;
-  background-image: url('/gradient-bg-view.png');
+  background-image: url("/gradient-bg-view.png");
   background-size: cover;
   background-position: center top;
   mask-image: linear-gradient(to bottom, black 55%, transparent 100%);

@@ -94,12 +94,22 @@ preference and avoids brittle fixed pixel math.
 
 ```css
 /* WRONG */
-.avatar { width: 24px; height: 24px; }
-.card { border-radius: 16px; }
+.avatar {
+  width: 24px;
+  height: 24px;
+}
+.card {
+  border-radius: 16px;
+}
 
 /* RIGHT */
-.avatar { width: 1.5rem; height: 1.5rem; }
-.card { border-radius: 1rem; }
+.avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.card {
+  border-radius: 1rem;
+}
 ```
 
 Common conversions (assuming 16px base): `4px → 0.25rem`, `8px → 0.5rem`, `12px → 0.75rem`,
