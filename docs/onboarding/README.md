@@ -3,7 +3,7 @@ title: Onboarding
 doc_type: onboarding
 status: accepted
 owners: ["@julian-cardone"]
-last_reviewed: 2026-05-02
+last_reviewed: 2026-05-07
 related:
   [
     "docs/standards/documentation.md",
@@ -30,15 +30,14 @@ This document orients new contributors to the repository. Read it before making 
 
 ## Repository Structure
 
-| Directory            | Purpose                                                   |
-| -------------------- | --------------------------------------------------------- |
-| `docs/adrs/`         | Architectural decisions — why things are the way they are |
-| `docs/architecture/` | Current system structure — what exists                    |
-| `docs/standards/`    | Rules all contributors must follow                        |
-| `docs/process/`      | Workflows and operational procedures                      |
-| `docs/agents/`       | AI agent capabilities and constraints                     |
-| `docs/technologies/` | Tools in use and why                                      |
-| `docs/onboarding/`   | This directory                                            |
+| Directory            | Purpose                                |
+| -------------------- | -------------------------------------- |
+| `docs/architecture/` | Current system structure — what exists |
+| `docs/standards/`    | Rules all contributors must follow     |
+| `docs/process/`      | Workflows and operational procedures   |
+| `docs/agents/`       | AI agent capabilities and constraints  |
+| `docs/technologies/` | Tools in use and why                   |
+| `docs/onboarding/`   | This directory                         |
 
 ---
 
@@ -49,11 +48,12 @@ Before contributing, read the following documents in order:
 1. `docs/agents/capabilities.md` — what AI agents can do
 2. `docs/agents/constraints.md` — what AI agents must not do
 3. `docs/standards/documentation.md` — how all documents must be written
-4. `docs/process/project-management.md` — how work is initiated and tracked
-5. `docs/process/git-workflow.md` — branching and merge conventions
-6. `docs/process/pr-format.md` — pull request structure
-7. `docs/process/done-criteria.md` — merge criteria
-8. `docs/technologies/stack.md` — what tools are in use
+4. `docs/process/doc-governance.md` — when to create, update, or delete docs
+5. `docs/process/project-management.md` — how work is initiated and tracked
+6. `docs/process/git-workflow.md` — branching and merge conventions
+7. `docs/process/pr-format.md` — pull request structure
+8. `docs/process/done-criteria.md` — merge criteria
+9. `docs/technologies/stack.md` — what tools are in use
 
 ---
 

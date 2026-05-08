@@ -3,8 +3,8 @@ title: Architecture Overview
 doc_type: architecture
 status: draft
 owners: ["@julian-cardone"]
-last_reviewed: 2026-04-15
-related: ["docs/adrs/0001-documentation-structure.md"]
+last_reviewed: 2026-05-07
+related: []
 tags: [architecture]
 ---
 

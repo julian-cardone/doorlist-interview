@@ -20,7 +20,6 @@ An issue must exist before:
 
 - Creating a branch.
 - Opening a pull request.
-- Drafting an Architecture Decision Record.
 - Making non-trivial documentation changes.
 
 Each issue represents a single unit of work.
