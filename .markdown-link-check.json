@@ -1,0 +1,4 @@
+{
+  "ignorePatterns": [{ "pattern": "^http://localhost" }],
+  "retryOn429": true
+}

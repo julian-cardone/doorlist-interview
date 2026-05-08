@@ -15,4 +15,35 @@ concurrency:
   group: ci-${{ github.head_ref }}
   cancel-in-progress: true
 
-# jobs: (none yet)
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ── TypeScript ────────────────────────────────────────────────
+      - name: Type check
+        run: npx tsc -b
+
+      # ── Formatting ────────────────────────────────────────────────
+      - name: Prettier
+        run: npx prettier --check .
+
+      # ── Linting ───────────────────────────────────────────────────
+      - name: ESLint
+        run: npm run lint
+
+      - name: Markdownlint
+        run: npx markdownlint-cli2 "**/*.md" "#node_modules"
+
+      - name: Markdown link check
+        run: npx markdown-link-check --config .markdown-link-check.json $(find . -name "*.md" -not -path "./node_modules/*")
