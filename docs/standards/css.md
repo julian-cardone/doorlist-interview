@@ -136,7 +136,7 @@ requires five or more variants indicates excessive responsibility and should be 
 
 CSS files must be co-located with the component they style.
 
-```
+```text
 EventCard/
   EventCard.tsx
   EventCard.module.css

@@ -138,7 +138,7 @@ A component does one specific job. If you find yourself adding boolean flags lik
 
 ## File layout
 
-```
+```text
 ComponentName/
   ComponentName.tsx
   ComponentName.module.css
@@ -151,7 +151,7 @@ Small components can be a single `.tsx` file with co-located types. Only split o
 
 ## Where new files go
 
-```
+```text
 src/
   components/ui/<PrimitiveName>/      # generic primitives
   features/<feature>/

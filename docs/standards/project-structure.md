@@ -25,7 +25,7 @@ conventions, see [CSS Standards](./css.md).
 
 ## Reference Layout
 
-```
+```text
 src/
   components/
     ui/                     # Shared UI primitives
@@ -77,7 +77,7 @@ Services encapsulate backend integration. Components must not call backend APIs 
 
 A service folder includes:
 
-```
+```text
 services/
   events/
     events.api.ts        # API request functions
