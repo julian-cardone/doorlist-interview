@@ -1,9 +1,9 @@
 ---
 title: Vercel
 doc_type: technology
-status: draft
+status: accepted
 owners: ["@julian-cardone"]
-last_reviewed: 2026-05-07
+last_reviewed: 2026-05-08
 related: ["docs/technologies/supabase.md"]
 tags: [tooling, ci-cd]
 ---
@@ -93,4 +93,4 @@ detection ever changes, a `vercel.json` rewrite rule must be added:
 
 ## Domains
 
-The default `*.vercel.app` URL is used for this project. A custom domain is not configured. /
+The default `*.vercel.app` URL is used for this project. A custom domain is not configured.

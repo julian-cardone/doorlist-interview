@@ -1,10 +1,15 @@
 ---
 title: Supabase
 doc_type: technology
-status: draft
+status: accepted
 owners: ["@julian-cardone"]
-last_reviewed: 2026-05-07
-related: ["docs/technologies/vercel.md", "docs/standards/project-structure.md"]
+last_reviewed: 2026-05-08
+related:
+  [
+    "docs/technologies/vercel.md",
+    "docs/standards/project-structure.md",
+    "docs/architecture/README.md",
+  ]
 tags: [tooling]
 ---
 
