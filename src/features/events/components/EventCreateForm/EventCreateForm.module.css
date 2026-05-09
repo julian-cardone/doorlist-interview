@@ -88,6 +88,10 @@
   background: rgba(0, 0, 0, 0.1);
 }
 
+.reactionBtnSelected {
+  border: 2px solid rgba(0, 0, 0, 0.35);
+}
+
 .fieldError {
   display: block;
   font-size: 0.75rem;

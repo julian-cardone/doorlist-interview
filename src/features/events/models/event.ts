@@ -7,6 +7,7 @@ export const EventFormSchema = z.object({
   endAt: z.string().optional(),
   location: z.string().optional(),
   description: z.string().optional(),
+  reaction: z.string().optional(),
 });
 
 export type EventFormData = z.infer<typeof EventFormSchema>;

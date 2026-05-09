@@ -97,16 +97,23 @@ export function EventCreateForm({
 
       <div className={styles.bottomBar}>
         <div className={styles.reactions}>
-          {REACTION_EMOJIS.map((emoji) => (
-            <button
-              key={emoji}
-              type="button"
-              className={styles.reactionBtn}
-              aria-label={emoji}
-            >
-              {emoji}
-            </button>
-          ))}
+          {REACTION_EMOJIS.map((emoji) => {
+            const selected = emoji !== "" && watch("reaction") === emoji;
+            return (
+              <button
+                key={emoji || "none"}
+                type="button"
+                className={`${styles.reactionBtn}${selected ? ` ${styles.reactionBtnSelected}` : ""}`}
+                aria-label={emoji || "No reaction"}
+                aria-pressed={selected}
+                onClick={() =>
+                  setValue("reaction", selected ? "" : emoji)
+                }
+              >
+                {emoji}
+              </button>
+            );
+          })}
         </div>
       </div>
       <Button
