@@ -102,3 +102,10 @@
 .reactionBtn:hover {
   background: rgba(0, 0, 0, 0.1);
 }
+
+.fieldError {
+  display: block;
+  font-size: 0.75rem;
+  color: #e53e3e;
+  margin-top: 0.25rem;
+}

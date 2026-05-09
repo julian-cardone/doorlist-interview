@@ -1,17 +1,40 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../../components/ui/Input/Input";
 import { Button } from "../../../../components/ui/Button/Button";
+import { EventFormSchema, type EventFormData } from "../../models/event";
 import styles from "./EventCreateForm.module.css";
 
 const REACTION_EMOJIS = ["❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
 
-export function EventCreateForm() {
+type EventCreateFormProps = {
+  onSubmit: (data: EventFormData) => void;
+  isSubmitting?: boolean;
+};
+
+export function EventCreateForm({
+  onSubmit,
+  isSubmitting,
+}: EventCreateFormProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<EventFormData>({ resolver: zodResolver(EventFormSchema) });
+
   return (
-    <div className={styles.form}>
-      <Input
-        variant="title"
-        placeholder="Event Title"
-        aria-label="Event title"
-      />
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <Input
+          variant="title"
+          placeholder="Event Title"
+          aria-label="Event title"
+          {...register("title")}
+        />
+        {errors.title && (
+          <span className={styles.fieldError}>{errors.title.message}</span>
+        )}
+      </div>
 
       <div className={styles.rows}>
         <div className={styles.row}>
@@ -34,32 +57,13 @@ export function EventCreateForm() {
             <Button variant="link">Add End Time</Button>
           </div>
         </div>
-        {/* these 2 are temporary */}
-        <div className={styles.row}>
-          <span className={styles.rowIcon}>
-            <CalendarIcon />
-          </span>
-          <div className={styles.dateRow}>
-            <span className={styles.dateText}>Tue, Jul 22 8:00PM</span>
-            <Button variant="link">Add End Time</Button>
-          </div>
-        </div>{" "}
-        <div className={styles.row}>
-          <span className={styles.rowIcon}>
-            <CalendarIcon />
-          </span>
-          <div className={styles.dateRow}>
-            <span className={styles.dateText}>Tue, Jul 22 8:00PM</span>
-            <Button variant="link">Add End Time</Button>
-          </div>
-        </div>
-        {/* these 2 are temporary */}
         <Input
           variant="pill"
           prefix={<LocationIcon />}
           placeholder="Location"
           aria-label="Location"
           className={styles.pillField}
+          {...register("location")}
         />
         <Input
           variant="pill"
@@ -67,6 +71,7 @@ export function EventCreateForm() {
           placeholder="Description"
           aria-label="Description"
           className={styles.pillField}
+          {...register("description")}
         />
         <div className={styles.row}>
           <span className={styles.rowIcon}>
@@ -82,6 +87,7 @@ export function EventCreateForm() {
           {REACTION_EMOJIS.map((emoji) => (
             <button
               key={emoji}
+              type="button"
               className={styles.reactionBtn}
               aria-label={emoji}
             >
@@ -90,8 +96,10 @@ export function EventCreateForm() {
           ))}
         </div>
       </div>
-      <Button variant="primary">Create Event</Button>
-    </div>
+      <Button variant="primary" type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Creating…" : "Create Event"}
+      </Button>
+    </form>
   );
 }
 

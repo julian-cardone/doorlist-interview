@@ -1,12 +1,21 @@
 import { EventCreateForm } from "../EventCreateForm/EventCreateForm";
 import { EventCoverPicker } from "../EventCoverPicker/EventCoverPicker";
+import type { EventFormData } from "../../models/event";
 import styles from "./EventCreateCard.module.css";
 
-export function EventCreateCard() {
+type EventCreateCardProps = {
+  onSubmit: (data: EventFormData) => void;
+  isSubmitting?: boolean;
+};
+
+export function EventCreateCard({
+  onSubmit,
+  isSubmitting,
+}: EventCreateCardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.formArea}>
-        <EventCreateForm />
+        <EventCreateForm onSubmit={onSubmit} isSubmitting={isSubmitting} />
       </div>
       <div className={styles.pickerArea}>
         <EventCoverPicker />
