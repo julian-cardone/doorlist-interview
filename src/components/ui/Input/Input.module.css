@@ -1,57 +1,105 @@
-/* ── Base ──────────────────────────────────────────────────────────────────── */
+/* ── Wrapper ──────────────────────────────────────────────────────────────── */
+/* The wrapper owns layout. Only pill gets visual container styling. */
 
-.base {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--color-text);
-  font-family: inherit;
+.wrapper {
   width: 100%;
 }
 
-.base::placeholder {
-  color: var(--color-text-muted);
-}
-
-/* ── Variants ──────────────────────────────────────────────────────────────── */
-
-/* title: large editable heading, e.g. event title field */
-.title {
-  font-size: 2.125rem;
-  line-height: 2.5625rem;
-  font-weight: 700;
-  vertical-align: middle;
-}
-
-/* field: compact inline input, e.g. location row */
-.field {
-  font-size: 0.875rem;
-}
-
-/* pill: frosted-glass capsule with optional leading slot, e.g. "Add Host" */
-.pill {
+.pillWrapper {
   display: flex;
   align-items: center;
   gap: 0.7rem;
+
+  padding: 0.7rem 1.125rem;
+  border-radius: 3rem;
+
   background: rgba(80, 80, 80, 0.055);
   backdrop-filter: blur(0.75rem);
   -webkit-backdrop-filter: blur(0.75rem);
-  border-radius: 3rem;
-  padding: 0.7rem 1.125rem;
 }
 
-.pill .base {
-  flex: 1;
-  min-width: 0;
-  font-size: 1.0625rem;
-  line-height: 1.375rem;
-}
-
-/* ── Prefix slot (pill only) ───────────────────────────────────────────────── */
+/* ── Prefix ───────────────────────────────────────────────────────────────── */
+/* Prefix appears before the input area, usually for icons/text in pill inputs. */
 
 .pillPrefix {
   display: flex;
   align-items: center;
-  color: var(--color-text-muted);
   flex-shrink: 0;
+
+  color: var(--color-text-muted);
+}
+
+/* ── Input area ───────────────────────────────────────────────────────────── */
+/* Positioning context for the real input and fake placeholder overlay. */
+
+.inputArea {
+  position: relative;
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Input base ───────────────────────────────────────────────────────────── */
+/* The real input controls behavior, form semantics, focus, and typed text. */
+
+.base {
+  width: 100%;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  color: var(--color-text);
+  font-family: inherit;
+}
+
+/* Native placeholder is only used to power :placeholder-shown.
+   The visible placeholder is rendered by .placeholder so the asterisk can be red. */
+.base::placeholder {
+  color: transparent;
+}
+
+/* ── Fake placeholder ─────────────────────────────────────────────────────── */
+/* Must visually match the real input text size/line-height for each variant. */
+
+.placeholder {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  color: var(--color-text-muted);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Hide fake placeholder once the user focuses or enters text. */
+.base:focus ~ .placeholder,
+.base:not(:placeholder-shown) ~ .placeholder {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.requiredAsterisk {
+  margin-left: 0.125rem;
+  color: var(--required-asterisk-color, var(--color-error));
+}
+
+/* ── Text variants ───────────────────────────────────────────────────────── */
+/* These classes apply to BOTH .base and .placeholder.
+   That keeps typed text and placeholder text perfectly aligned. */
+
+.titleInput {
+  font-size: 2.125rem;
+  line-height: 2.5625rem;
+  font-weight: 700;
+}
+
+.fieldInput {
+  font-size: 0.875rem;
+}
+
+.pillInput {
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
 }

@@ -1,19 +1,51 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../../components/ui/Input/Input";
 import { Button } from "../../../../components/ui/Button/Button";
+import { EventDateRow } from "../EventDateRow/EventDateRow";
+import { EventFormSchema, type EventFormData } from "../../models/event";
+import { isRequiredField } from "../../../../lib/form";
 import styles from "./EventCreateForm.module.css";
 
-const REACTION_EMOJIS = ["❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
+const REACTION_EMOJIS = ["", "❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
 
-export function EventCreateForm() {
+type EventCreateFormProps = {
+  onSubmit: (data: EventFormData) => void;
+  isSubmitting?: boolean;
+};
+
+export function EventCreateForm({
+  onSubmit,
+  isSubmitting,
+}: EventCreateFormProps) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors, isValid },
+  } = useForm<EventFormData>({
+    resolver: zodResolver(EventFormSchema),
+    mode: "onChange",
+  });
+
   return (
-    <div className={styles.form}>
-      <Input
-        variant="title"
-        placeholder="Event Title"
-        aria-label="Event title"
-      />
-
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.rows}>
+        <div className={styles.row}>
+          <Input
+            id="event-title"
+            variant="title"
+            required={isRequiredField(EventFormSchema, "title")}
+            placeholder="Event Title"
+            {...register("title")}
+          />
+          {errors.title && (
+            <span className={styles.fieldError}>{errors.title.message}</span>
+          )}
+        </div>
+        {/* <div className={styles.rowDivider} /> */}
+
         <div className={styles.row}>
           <div className={styles.hostRow}>
             <div className={styles.avatarStack}>
@@ -24,50 +56,36 @@ export function EventCreateForm() {
             <Button variant="ghost">Add host</Button>
           </div>
         </div>
-        <div className={styles.rowDivider} />
         <div className={styles.row}>
-          <span className={styles.rowIcon}>
-            <CalendarIcon />
-          </span>
-          <div className={styles.dateRow}>
-            <span className={styles.dateText}>Tue, Jul 22 8:00PM</span>
-            <Button variant="link">Add End Time</Button>
-          </div>
+          <EventDateRow
+            startAt={watch("startAt") ?? ""}
+            onStartAtChange={(v) =>
+              setValue("startAt", v, { shouldValidate: true })
+            }
+            endAt={watch("endAt")}
+            onEndAtChange={(v) =>
+              setValue("endAt", v, { shouldValidate: true })
+            }
+          />
         </div>
-        {/* these 2 are temporary */}
         <div className={styles.row}>
-          <span className={styles.rowIcon}>
-            <CalendarIcon />
-          </span>
-          <div className={styles.dateRow}>
-            <span className={styles.dateText}>Tue, Jul 22 8:00PM</span>
-            <Button variant="link">Add End Time</Button>
-          </div>
-        </div>{" "}
-        <div className={styles.row}>
-          <span className={styles.rowIcon}>
-            <CalendarIcon />
-          </span>
-          <div className={styles.dateRow}>
-            <span className={styles.dateText}>Tue, Jul 22 8:00PM</span>
-            <Button variant="link">Add End Time</Button>
-          </div>
+          <Input
+            variant="pill"
+            textPrefix={<LocationIcon />}
+            placeholder="Location"
+            aria-label="Location"
+            {...register("location")}
+          />
         </div>
-        {/* these 2 are temporary */}
-        <Input
-          variant="pill"
-          prefix={<LocationIcon />}
-          placeholder="Location"
-          aria-label="Location"
-          className={styles.pillField}
-        />
-        <Input
-          variant="pill"
-          prefix={<NotesIcon />}
-          placeholder="Description"
-          aria-label="Description"
-          className={styles.pillField}
-        />
+        <div className={styles.row}>
+          <Input
+            variant="pill"
+            textPrefix={<NotesIcon />}
+            placeholder="Description"
+            aria-label="Description"
+            {...register("description")}
+          />
+        </div>
         <div className={styles.row}>
           <span className={styles.rowIcon}>
             <PhotoIcon />
@@ -82,6 +100,7 @@ export function EventCreateForm() {
           {REACTION_EMOJIS.map((emoji) => (
             <button
               key={emoji}
+              type="button"
               className={styles.reactionBtn}
               aria-label={emoji}
             >
@@ -90,28 +109,14 @@ export function EventCreateForm() {
           ))}
         </div>
       </div>
-      <Button variant="primary">Create Event</Button>
-    </div>
-  );
-}
-
-function CalendarIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="3" y="4" width="18" height="18" rx="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-    </svg>
+      <Button
+        variant="primary"
+        type="submit"
+        disabled={!isValid || isSubmitting}
+      >
+        {isSubmitting ? "Creating…" : "Create Event"}
+      </Button>
+    </form>
   );
 }
 

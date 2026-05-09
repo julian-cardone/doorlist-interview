@@ -36,12 +36,18 @@
   background: var(--gradient-primary);
   color: #fff;
   border-radius: 1.25rem;
-  padding: 0.45rem 1.25rem;
-  font-size: 0.875rem;
-  font-weight: 600;
+  padding: 0.7rem 1.25rem;
+  line-height: 1.375rem;
+  font-size: 1rem;
   transition: opacity 0.15s;
 }
 
-.primary:hover {
+.primary:hover:not(:disabled) {
   opacity: 0.88;
+}
+
+.primary:disabled {
+  background: rgba(80, 80, 80, 0.055);
+  color: var(--color-text-muted);
+  cursor: default;
 }
