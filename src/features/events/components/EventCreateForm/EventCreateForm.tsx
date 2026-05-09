@@ -2,7 +2,8 @@ import { Input } from "../../../../components/ui/Input/Input";
 import { Button } from "../../../../components/ui/Button/Button";
 import styles from "./EventCreateForm.module.css";
 
-const REACTION_EMOJIS = ["😊", "❤️", "🎉", "🔥", "✨"];
+// const REACTION_EMOJIS = ["❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
+const REACTION_EMOJIS = ["❤️", "🎉", "🔥"];
 
 export function EventCreateForm() {
   return (
@@ -13,7 +14,7 @@ export function EventCreateForm() {
         aria-label="Event title"
       />
 
-      <div className={styles.rows}>
+      {/* <div className={styles.rows}>
         <div className={styles.row}>
           <span className={styles.rowIcon}>
             <PlusCircleIcon />
@@ -62,6 +63,8 @@ export function EventCreateForm() {
           </span>
           <Button variant="ghost">ADD PHOTOS</Button>
         </div>
+
+        <div className={styles.rowDivider} />
       </div>
 
       <div className={styles.bottomBar}>
@@ -77,7 +80,7 @@ export function EventCreateForm() {
           ))}
         </div>
       </div>
-      <Button variant="primary">Publish</Button>
+      <Button variant="primary">Publish</Button> */}
     </div>
   );
 }

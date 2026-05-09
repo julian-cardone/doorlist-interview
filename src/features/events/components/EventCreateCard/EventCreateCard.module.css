@@ -1,13 +1,16 @@
 .card {
   display: flex;
   flex: 1;
-  overflow: hidden;
 }
 
 .formArea {
+  display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
 .pickerArea {
+  display: flex;
+  flex-direction: column;
   flex: 1;
 }

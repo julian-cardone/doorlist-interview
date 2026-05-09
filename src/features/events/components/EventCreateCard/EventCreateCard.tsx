@@ -8,9 +8,9 @@ export function EventCreateCard() {
       <div className={styles.formArea}>
         <EventCreateForm />
       </div>
-      <div className={styles.pickerArea}>
+      {/* <div className={styles.pickerArea}>
         <EventCoverPicker />
-      </div>
+      </div> */}
     </div>
   );
 }

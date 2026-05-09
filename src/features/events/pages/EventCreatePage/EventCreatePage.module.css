@@ -5,6 +5,8 @@
   background-position: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
   padding: 7rem 15rem;
+  flex: 1;
 }
