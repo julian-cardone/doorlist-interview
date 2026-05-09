@@ -1,9 +1,10 @@
 .page {
-  min-height: 100vh;
+  height: 100dvh;
   background-image: url("/gradient-bg.png");
   background-size: cover;
   background-position: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding: 5rem 20rem;
+  padding: 7rem 15rem;
 }
