@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../../components/ui/Input/Input";
 import { Button } from "../../../../components/ui/Button/Button";
 import { EventFormSchema, type EventFormData } from "../../models/event";
+import { isRequiredField } from "../../../../lib/form";
 import styles from "./EventCreateForm.module.css";
 
 const REACTION_EMOJIS = ["❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
@@ -27,9 +28,10 @@ export function EventCreateForm({
       <div className={styles.rows}>
         <div className={styles.row}>
           <Input
+            id="event-title"
             variant="title"
+            required={isRequiredField(EventFormSchema, "title")}
             placeholder="Event Title"
-            aria-label="Event title"
             {...register("title")}
           />
           {errors.title && (
@@ -56,22 +58,24 @@ export function EventCreateForm({
             <Button variant="link">Add End Time</Button>
           </div>
         </div>
-        <Input
-          variant="pill"
-          prefix={<LocationIcon />}
-          placeholder="Location"
-          aria-label="Location"
-          className={styles.pillField}
-          {...register("location")}
-        />
-        <Input
-          variant="pill"
-          prefix={<NotesIcon />}
-          placeholder="Description"
-          aria-label="Description"
-          className={styles.pillField}
-          {...register("description")}
-        />
+        <div className={styles.row}>
+          <Input
+            variant="pill"
+            textPrefix={<LocationIcon />}
+            placeholder="Location"
+            aria-label="Location"
+            {...register("location")}
+          />
+        </div>
+        <div className={styles.row}>
+          <Input
+            variant="pill"
+            textPrefix={<NotesIcon />}
+            placeholder="Description"
+            aria-label="Description"
+            {...register("description")}
+          />
+        </div>
         <div className={styles.row}>
           <span className={styles.rowIcon}>
             <PhotoIcon />

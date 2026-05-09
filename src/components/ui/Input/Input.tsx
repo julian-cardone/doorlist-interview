@@ -1,30 +1,49 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 import styles from "./Input.module.css";
 
-type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "prefix"> & {
-  variant?: "title" | "field" | "pill";
-  prefix?: ReactNode;
+type InputVariant = "title" | "field" | "pill";
+
+type Props = InputHTMLAttributes<HTMLInputElement> & {
+  variant?: InputVariant;
+  textPrefix?: ReactNode;
 };
+
+function cx(...classes: Array<string | undefined | false>) {
+  return classes.filter(Boolean).join(" ");
+}
 
 export function Input({
   variant = "field",
-  prefix,
   className,
+  required,
+  textPrefix,
+  placeholder,
   ...props
 }: Props) {
-  if (variant === "pill") {
-    return (
-      <div className={`${styles.pill} ${className ?? ""}`}>
-        {prefix != null && <span className={styles.pillPrefix}>{prefix}</span>}
-        <input className={styles.base} {...props} />
-      </div>
-    );
-  }
-
   return (
-    <input
-      className={`${styles.base} ${styles[variant]} ${className ?? ""}`}
-      {...props}
-    />
+    <div
+      className={cx(
+        styles.wrapper,
+        variant === "pill" && styles.pillWrapper,
+        className,
+      )}
+    >
+      {textPrefix && <span className={styles.pillPrefix}>{textPrefix}</span>}
+
+      <span className={styles.inputArea}>
+        <input
+          className={cx(styles.base, styles[`${variant}Input`])}
+          placeholder={placeholder ? " " : undefined}
+          {...props}
+        />
+
+        {placeholder && (
+          <span className={cx(styles.placeholder, styles[`${variant}Input`])}>
+            {placeholder}
+            {required && <span className={styles.requiredAsterisk}>*</span>}
+          </span>
+        )}
+      </span>
+    </div>
   );
 }
