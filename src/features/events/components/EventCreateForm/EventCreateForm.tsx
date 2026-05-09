@@ -5,6 +5,7 @@ import { Button } from "../../../../components/ui/Button/Button";
 import { EventDateRow } from "../EventDateRow/EventDateRow";
 import { EventFormSchema, type EventFormData } from "../../models/event";
 import { isRequiredField } from "../../../../lib/form";
+import { FloatingEmojis } from "../FloatingEmojis/FloatingEmojis";
 import styles from "./EventCreateForm.module.css";
 
 const REACTION_EMOJIS = ["", "❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
@@ -31,6 +32,8 @@ export function EventCreateForm({
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <FloatingEmojis emoji={watch("reaction") ?? ""} zIndex={0} count={5} speedScale={0.6} />
+      <FloatingEmojis emoji={watch("reaction") ?? ""} zIndex={2} count={5} sizeScale={1.4} speedScale={1.4} />
       <div className={styles.rows}>
         <div className={styles.row}>
           <Input
