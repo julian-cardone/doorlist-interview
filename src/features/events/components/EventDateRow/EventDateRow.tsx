@@ -44,7 +44,14 @@ export function EventDateRow({
           <div className={styles.row}>
             <span className={styles.label}>Starts</span>
             <div className={styles.dateValue}>
-              <span className={[styles.dateDisplay, !startAt && styles.datePlaceholder].filter(Boolean).join(" ")}>
+              <span
+                className={[
+                  styles.dateDisplay,
+                  !startAt && styles.datePlaceholder,
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
                 {startAt ? formatDatetime(startAt) : "Select date & time"}
               </span>
               <input
@@ -61,7 +68,14 @@ export function EventDateRow({
             <span className={styles.label}>Ends</span>
             {showEnd ? (
               <div className={styles.dateValue}>
-                <span className={[styles.dateDisplay, !endAt && styles.datePlaceholder].filter(Boolean).join(" ")}>
+                <span
+                  className={[
+                    styles.dateDisplay,
+                    !endAt && styles.datePlaceholder,
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                >
                   {endAt ? formatDatetime(endAt) : "Select date & time"}
                 </span>
                 <input

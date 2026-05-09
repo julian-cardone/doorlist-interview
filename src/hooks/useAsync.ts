@@ -32,7 +32,9 @@ export function useAsync<TData, TArgs extends unknown[]>(
         return result;
       } catch (error) {
         const normalizedError =
-          error instanceof Error ? error : new Error("Unexpected error occurred.");
+          error instanceof Error
+            ? error
+            : new Error("Unexpected error occurred.");
         setState({ data: null, error: normalizedError, isLoading: false });
         throw normalizedError;
       }

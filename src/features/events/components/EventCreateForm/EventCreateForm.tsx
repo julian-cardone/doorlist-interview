@@ -109,7 +109,11 @@ export function EventCreateForm({
           ))}
         </div>
       </div>
-      <Button variant="primary" type="submit" disabled={!isValid || isSubmitting}>
+      <Button
+        variant="primary"
+        type="submit"
+        disabled={!isValid || isSubmitting}
+      >
         {isSubmitting ? "Creating…" : "Create Event"}
       </Button>
     </form>
