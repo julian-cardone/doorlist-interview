@@ -2,11 +2,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../../components/ui/Input/Input";
 import { Button } from "../../../../components/ui/Button/Button";
+import { EventDateRow } from "../EventDateRow/EventDateRow";
 import { EventFormSchema, type EventFormData } from "../../models/event";
 import { isRequiredField } from "../../../../lib/form";
 import styles from "./EventCreateForm.module.css";
 
-const REACTION_EMOJIS = ["❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
+const REACTION_EMOJIS = ["", "❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
 
 type EventCreateFormProps = {
   onSubmit: (data: EventFormData) => void;
@@ -20,6 +21,8 @@ export function EventCreateForm({
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<EventFormData>({ resolver: zodResolver(EventFormSchema) });
 
@@ -38,6 +41,8 @@ export function EventCreateForm({
             <span className={styles.fieldError}>{errors.title.message}</span>
           )}
         </div>
+        {/* <div className={styles.rowDivider} /> */}
+
         <div className={styles.row}>
           <div className={styles.hostRow}>
             <div className={styles.avatarStack}>
@@ -48,15 +53,17 @@ export function EventCreateForm({
             <Button variant="ghost">Add host</Button>
           </div>
         </div>
-        <div className={styles.rowDivider} />
         <div className={styles.row}>
-          <span className={styles.rowIcon}>
-            <CalendarIcon />
-          </span>
-          <div className={styles.dateRow}>
-            <span className={styles.dateText}>Tue, Jul 22 8:00PM</span>
-            <Button variant="link">Add End Time</Button>
-          </div>
+          <EventDateRow
+            startAt={watch("startAt") ?? ""}
+            onStartAtChange={(v) =>
+              setValue("startAt", v, { shouldValidate: true })
+            }
+            endAt={watch("endAt")}
+            onEndAtChange={(v) =>
+              setValue("endAt", v, { shouldValidate: true })
+            }
+          />
         </div>
         <div className={styles.row}>
           <Input
@@ -103,26 +110,6 @@ export function EventCreateForm({
         {isSubmitting ? "Creating…" : "Create Event"}
       </Button>
     </form>
-  );
-}
-
-function CalendarIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="3" y="4" width="18" height="18" rx="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-    </svg>
   );
 }
 
