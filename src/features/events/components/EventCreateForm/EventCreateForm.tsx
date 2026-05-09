@@ -24,19 +24,18 @@ export function EventCreateForm({
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <Input
-          variant="title"
-          placeholder="Event Title"
-          aria-label="Event title"
-          {...register("title")}
-        />
-        {errors.title && (
-          <span className={styles.fieldError}>{errors.title.message}</span>
-        )}
-      </div>
-
       <div className={styles.rows}>
+        <div className={styles.row}>
+          <Input
+            variant="title"
+            placeholder="Event Title"
+            aria-label="Event title"
+            {...register("title")}
+          />
+          {errors.title && (
+            <span className={styles.fieldError}>{errors.title.message}</span>
+          )}
+        </div>
         <div className={styles.row}>
           <div className={styles.hostRow}>
             <div className={styles.avatarStack}>
