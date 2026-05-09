@@ -27,9 +27,7 @@ export function EventCreateForm() {
             <Button variant="ghost">Add host</Button>
           </div>
         </div>
-
         <div className={styles.rowDivider} />
-
         <div className={styles.row}>
           <span className={styles.rowIcon}>
             <CalendarIcon />
@@ -39,7 +37,26 @@ export function EventCreateForm() {
             <Button variant="link">Add End Time</Button>
           </div>
         </div>
-
+        {/* these 2 are temporary */}
+        <div className={styles.row}>
+          <span className={styles.rowIcon}>
+            <CalendarIcon />
+          </span>
+          <div className={styles.dateRow}>
+            <span className={styles.dateText}>Tue, Jul 22 8:00PM</span>
+            <Button variant="link">Add End Time</Button>
+          </div>
+        </div>{" "}
+        <div className={styles.row}>
+          <span className={styles.rowIcon}>
+            <CalendarIcon />
+          </span>
+          <div className={styles.dateRow}>
+            <span className={styles.dateText}>Tue, Jul 22 8:00PM</span>
+            <Button variant="link">Add End Time</Button>
+          </div>
+        </div>
+        {/* these 2 are temporary */}
         <Input
           variant="pill"
           prefix={<LocationIcon />}
@@ -47,7 +64,6 @@ export function EventCreateForm() {
           aria-label="Location"
           className={styles.pillField}
         />
-
         <Input
           variant="pill"
           prefix={<NotesIcon />}
@@ -55,14 +71,12 @@ export function EventCreateForm() {
           aria-label="Description"
           className={styles.pillField}
         />
-
         <div className={styles.row}>
           <span className={styles.rowIcon}>
             <PhotoIcon />
           </span>
           <Button variant="ghost">ADD PHOTOS</Button>
         </div>
-
         <div className={styles.rowDivider} />
       </div>
 
@@ -79,7 +93,7 @@ export function EventCreateForm() {
           ))}
         </div>
       </div>
-      <Button variant="primary">Publish</Button>
+      <Button variant="primary">Create Event</Button>
     </div>
   );
 }
