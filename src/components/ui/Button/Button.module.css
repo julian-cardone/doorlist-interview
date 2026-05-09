@@ -42,6 +42,12 @@
   transition: opacity 0.15s;
 }
 
-.primary:hover {
+.primary:hover:not(:disabled) {
   opacity: 0.88;
+}
+
+.primary:disabled {
+  background: rgba(80, 80, 80, 0.055);
+  color: var(--color-text-muted);
+  cursor: default;
 }

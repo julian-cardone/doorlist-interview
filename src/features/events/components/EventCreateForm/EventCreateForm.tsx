@@ -23,8 +23,11 @@ export function EventCreateForm({
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
-  } = useForm<EventFormData>({ resolver: zodResolver(EventFormSchema) });
+    formState: { errors, isValid },
+  } = useForm<EventFormData>({
+    resolver: zodResolver(EventFormSchema),
+    mode: "onChange",
+  });
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -106,7 +109,7 @@ export function EventCreateForm({
           ))}
         </div>
       </div>
-      <Button variant="primary" type="submit" disabled={isSubmitting}>
+      <Button variant="primary" type="submit" disabled={!isValid || isSubmitting}>
         {isSubmitting ? "Creating…" : "Create Event"}
       </Button>
     </form>
