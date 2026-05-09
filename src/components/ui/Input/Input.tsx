@@ -6,7 +6,12 @@ type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "prefix"> & {
   prefix?: ReactNode;
 };
 
-export function Input({ variant = "field", prefix, className, ...props }: Props) {
+export function Input({
+  variant = "field",
+  prefix,
+  className,
+  ...props
+}: Props) {
   if (variant === "pill") {
     return (
       <div className={`${styles.pill} ${className ?? ""}`}>
@@ -16,5 +21,10 @@ export function Input({ variant = "field", prefix, className, ...props }: Props)
     );
   }
 
-  return <input className={`${styles.base} ${styles[variant]} ${className ?? ""}`} {...props} />;
+  return (
+    <input
+      className={`${styles.base} ${styles[variant]} ${className ?? ""}`}
+      {...props}
+    />
+  );
 }

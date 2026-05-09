@@ -157,11 +157,11 @@ at any ancestor breaks containment for everything below it.
 }
 ```
 
-**`align-items: center` silently breaks this chain.** When a flex container sets `align-items:
-center` (or `flex-start`/`flex-end`), its children become intrinsic-width — sized by their content,
-not by the parent. A `min-width: 0` on a child inside a `center`-aligned container has no effect
-because there is no upstream definite width to bound it. Use `align-items: stretch` (the default)
-on any container whose children must participate in a width-constrained chain.
+**`align-items: center` silently breaks this chain.** When a flex container sets
+`align-items: center` (or `flex-start`/`flex-end`), its children become intrinsic-width — sized by
+their content, not by the parent. A `min-width: 0` on a child inside a `center`-aligned container
+has no effect because there is no upstream definite width to bound it. Use `align-items: stretch`
+(the default) on any container whose children must participate in a width-constrained chain.
 
 When a layout misbehaves — a scroll container that doesn't scroll, content that overflows the
 viewport, a row that won't shrink — the cause is almost always a missing `min-height: 0` or
