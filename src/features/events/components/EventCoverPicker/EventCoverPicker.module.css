@@ -1,0 +1,31 @@
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.coverImageBox {
+  aspect-ratio: 1;
+  border-radius: 1rem;
+  overflow: hidden; /* for corners */
+}
+
+.coverPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-cover);
+}
+
+.thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: scroll;
+}
+
+.thumbnail {
+  width: 3.625rem;
+  aspect-ratio: 1;
+  border-radius: 0.625rem;
+  width: 5rem;
+  flex-shrink: 0;
+}

@@ -1,27 +1,57 @@
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+
 .base {
   background: transparent;
   border: none;
   outline: none;
   color: var(--color-text);
   font-family: inherit;
+  width: 100%;
 }
 
 .base::placeholder {
   color: var(--color-text-muted);
 }
 
-/* title: large editable heading */
+/* ── Variants ──────────────────────────────────────────────────────────────── */
+
+/* title: large editable heading, e.g. event title field */
 .title {
-  font-size: 1.4rem;
+  font-size: 2.125rem;
+  line-height: 2.5625rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  vertical-align: middle;
 }
 
-.title::placeholder {
-  color: var(--color-text);
-}
-
-/* field: compact inline input for forms */
+/* field: compact inline input, e.g. location row */
 .field {
   font-size: 0.875rem;
+}
+
+/* pill: frosted-glass capsule with optional leading slot, e.g. "Add Host" */
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: rgba(80, 80, 80, 0.055);
+  backdrop-filter: blur(0.75rem);
+  -webkit-backdrop-filter: blur(0.75rem);
+  border-radius: 3rem;
+  padding: 0.7rem 1.125rem;
+}
+
+.pill .base {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+}
+
+/* ── Prefix slot (pill only) ───────────────────────────────────────────────── */
+
+.pillPrefix {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
 }

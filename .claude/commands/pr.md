@@ -26,7 +26,6 @@ Plain descriptive sentence summarizing the change. Use sentence case. No prefixe
 gh pr create \
   --title "<title>" \
   --assignee "<assignee from issue, or @me if unassigned>" \
-  --project "doorlist-interview-project" \
   --body "<body>"
 ```
 

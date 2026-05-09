@@ -8,13 +8,19 @@ export function EventCoverActions() {
       </div>
       <div className={styles.actions}>
         <div className={styles.actionItem}>
-          <button className={styles.rsvpBtn} aria-label="RSVP">
+          <button
+            className={`${styles.actionBtn} ${styles.rsvpBtn}`}
+            aria-label="RSVP"
+          >
             🔥
           </button>
           <span className={styles.actionLabel}>RSVP</span>
         </div>
         <div className={styles.actionItem}>
-          <button className={styles.inviteBtn} aria-label="Invite">
+          <button
+            className={`${styles.actionBtn} ${styles.inviteBtn}`}
+            aria-label="Invite"
+          >
             <ShareIcon />
           </button>
           <span className={styles.actionLabel}>Invite</span>

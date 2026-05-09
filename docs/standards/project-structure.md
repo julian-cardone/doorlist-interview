@@ -3,11 +3,12 @@ title: Project Structure
 doc_type: standard
 status: draft
 owners: ["@julian-cardone"]
-last_reviewed: 2026-05-07
+last_reviewed: 2026-05-08
 related:
   [
     "docs/standards/frontend-philosophy.md",
     "docs/standards/css.md",
+    "docs/standards/layout.md",
     "docs/standards/documentation.md",
   ]
 tags: [standards]
@@ -19,7 +20,7 @@ This document defines the folder layout for frontend code. It covers the boundar
 feature code, service organization, hooks and providers, and the rules for introducing new folders.
 
 For component design principles, see [Frontend Philosophy](./frontend-philosophy.md). For styling
-conventions, see [CSS Standards](./css.md).
+conventions, see [CSS Standards](./css.md). For flex layout patterns, see [Layout](./layout.md).
 
 ---
 
@@ -46,12 +47,36 @@ src/
   services/                 # API clients and integration code
   lib/                      # Cross-cutting pure utilities
   styles/
+    reset.css
     globals.css
     variables.css
+
+  App.tsx
+  router.tsx
+  index.tsx
 ```
 
 A feature folder must include only the subfolders that contain files. A folder must not be created
 in advance of its contents.
+
+---
+
+## App Entry
+
+The application root is composed of three files at the top of `src/`:
+
+- `index.tsx` — the DOM entry point. It mounts the router into the root element and imports global
+  stylesheets. It must not contain application logic.
+- `router.tsx` — the route tree. It defines the routes, references feature pages, and exports the
+  router. It must not contain layout markup beyond the route configuration itself.
+- `App.tsx` — the root layout component. It renders the current route via `<Outlet />` and is the
+  natural home for top-level provider composition when providers are introduced.
+
+The chain is `index.tsx` mounts the router, the router renders `App`, `App` renders the current
+route. Each file owns a single concern and must not absorb the others.
+
+These three files are the only `.tsx` files permitted directly under `src/`. All other components
+must live in `components/ui/`, `features/<feature>/components/`, or `features/<feature>/pages/`.
 
 ---
 
@@ -111,6 +136,21 @@ the provider.
 
 ---
 
+## Styles
+
+Global stylesheets live in `src/styles/`:
+
+- `reset.css` — CSS reset that normalizes browser defaults.
+- `globals.css` — base typography and root-level defaults.
+- `variables.css` — design tokens including colors, spacing, radii, shadows, and font definitions.
+
+These are the only files in which global CSS is permitted. All other styles must be CSS Modules
+co-located with their component. The full rule is in [CSS Standards](./css.md).
+
+`index.tsx` is the only place these stylesheets are imported.
+
+---
+
 ## Feature Folders
 
 A new `features/<name>/` folder must be created when both of the following are true:
@@ -125,8 +165,7 @@ dialog or a generic notification banner is not a feature.
 
 ## Pages
 
-Page components live in `features/<feature>/pages/`. Smaller projects may place pages in a top-level
-`src/pages/` folder when no feature folder is justified.
+Page components live in `features/<feature>/pages/`.
 
 Pages own:
 
@@ -134,7 +173,12 @@ Pages own:
 - Page-level state, including current selection, fetched data, and route parameters.
 - Routing concerns specific to the page.
 
-Pages must remain thin. Workflow logic must live in feature components or hooks.
+Pages must remain shells. They contain a surface, a layout container, and instances of feature
+components. They must not render content directly. The full rule is in
+[Frontend Philosophy](./frontend-philosophy.md).
+
+Workflow logic, content rendering, and section-level state belong in feature components, not in
+pages.
 
 ---
 

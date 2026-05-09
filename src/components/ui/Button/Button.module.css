@@ -11,7 +11,7 @@
 .ghost {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #888;
+  color: var(--color-text-muted);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }

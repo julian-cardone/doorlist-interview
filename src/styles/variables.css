@@ -1,6 +1,14 @@
 :root {
   --color-text: #1a1a1a;
+  --color-text-strong: #111;
   --color-text-muted: #888;
   --color-accent: #7c3aed;
   --gradient-primary: linear-gradient(135deg, #c084fc, #818cf8, #60a5fa);
+  --gradient-cover: linear-gradient(
+    135deg,
+    #a78bfa 0%,
+    #f472b6 35%,
+    #fb923c 60%,
+    #fbbf24 100%
+  );
 }
