@@ -45,7 +45,7 @@ git checkout -b issue-<number>-<slug> main
 
 ```bash
 gh project item-add 1 --owner @me --url <issue-url>
-sleep 3
+sleep 6
 ```
 
 Query the project to get IDs. Extract:
@@ -81,7 +81,7 @@ gh api graphql -f query='
 ```
 
 Verify the item is present before proceeding. If the issue number is not found in the items list,
-wait 3 seconds and re-query. Retry up to 3 times before stopping with an error.
+run `sleep 5` then re-query. Retry up to 5 times before stopping with an error.
 
 Then update status:
 

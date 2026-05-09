@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../../components/ui/Input/Input";
@@ -6,6 +7,7 @@ import { EventDateRow } from "../EventDateRow/EventDateRow";
 import { EventFormSchema, type EventFormData } from "../../models/event";
 import { isRequiredField } from "../../../../lib/form";
 import { FloatingEmojis } from "../FloatingEmojis/FloatingEmojis";
+import { EventHostRow } from "../EventHostRow/EventHostRow";
 import styles from "./EventCreateForm.module.css";
 
 const REACTION_EMOJIS = ["", "❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
@@ -19,6 +21,8 @@ export function EventCreateForm({
   onSubmit,
   isSubmitting,
 }: EventCreateFormProps) {
+  const [hosts, setHosts] = useState<string[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -32,8 +36,19 @@ export function EventCreateForm({
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <FloatingEmojis emoji={watch("reaction") ?? ""} zIndex={0} count={5} speedScale={0.6} />
-      <FloatingEmojis emoji={watch("reaction") ?? ""} zIndex={2} count={5} sizeScale={1.4} speedScale={1.4} />
+      <FloatingEmojis
+        emoji={watch("reaction") ?? ""}
+        zIndex={0}
+        count={5}
+        speedScale={0.6}
+      />
+      <FloatingEmojis
+        emoji={watch("reaction") ?? ""}
+        zIndex={2}
+        count={5}
+        sizeScale={1.4}
+        speedScale={1.4}
+      />
       <div className={styles.rows}>
         <div className={styles.row}>
           <Input
@@ -50,14 +65,13 @@ export function EventCreateForm({
         {/* <div className={styles.rowDivider} /> */}
 
         <div className={styles.row}>
-          <div className={styles.hostRow}>
-            <div className={styles.avatarStack}>
-              <span className={styles.avatar} />
-              <span className={styles.avatar} />
-              <span className={styles.avatar} />
-            </div>
-            <Button variant="ghost">Add host</Button>
-          </div>
+          <EventHostRow
+            hosts={hosts}
+            onAdd={(name) => setHosts((prev) => [...prev, name])}
+            onRemove={(i) =>
+              setHosts((prev) => prev.filter((_, idx) => idx !== i))
+            }
+          />
         </div>
         <div className={styles.row}>
           <EventDateRow
@@ -89,13 +103,13 @@ export function EventCreateForm({
             {...register("description")}
           />
         </div>
-        <div className={styles.row}>
+        {/* <div className={styles.row}>
           <span className={styles.rowIcon}>
             <PhotoIcon />
           </span>
           <Button variant="ghost">ADD PHOTOS</Button>
-        </div>
-        <div className={styles.rowDivider} />
+        </div> */}
+        {/* <div className={styles.rowDivider} /> */}
       </div>
 
       <div className={styles.bottomBar}>
@@ -109,9 +123,7 @@ export function EventCreateForm({
                 className={`${styles.reactionBtn}${selected ? ` ${styles.reactionBtnSelected}` : ""}`}
                 aria-label={emoji || "No reaction"}
                 aria-pressed={selected}
-                onClick={() =>
-                  setValue("reaction", selected ? "" : emoji)
-                }
+                onClick={() => setValue("reaction", selected ? "" : emoji)}
               >
                 {emoji}
               </button>
@@ -164,25 +176,6 @@ function NotesIcon() {
       <line x1="21" y1="6" x2="3" y2="6" />
       <line x1="21" y1="14" x2="3" y2="14" />
       <line x1="17" y1="18" x2="3" y2="18" />
-    </svg>
-  );
-}
-
-function PhotoIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <circle cx="8.5" cy="8.5" r="1.5" />
-      <polyline points="21 15 16 10 5 21" />
     </svg>
   );
 }
