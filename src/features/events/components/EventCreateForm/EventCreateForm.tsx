@@ -15,9 +15,6 @@ export function EventCreateForm() {
 
       <div className={styles.rows}>
         <div className={styles.row}>
-          <span className={styles.rowIcon}>
-            <PlusCircleIcon />
-          </span>
           <div className={styles.hostRow}>
             <div className={styles.avatarStack}>
               <span className={styles.avatar} />
