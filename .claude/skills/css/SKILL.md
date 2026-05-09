@@ -111,6 +111,12 @@ Components must not declare their own overflow behavior.
 
 The wrapping page or pane decides whether content scrolls and where the scroll boundary is.
 
+`overflow: hidden` is permitted only for decorative clipping — when `border-radius` must cut a child
+image or an absolutely-positioned overlay bleeds past a positioned ancestor. It must never be used
+to suppress content that escapes its container due to an unconstrained layout. Content that escapes
+signals a missing `min-width: 0`, `min-height: 0`, or `align-items: stretch` upstream — fix the
+constraint, not the symptom.
+
 ### `min-height: 0` and `min-width: 0` — the most-violated flex rules
 
 In a flex column, children default to `min-height: auto`, which means they refuse to shrink below
@@ -137,7 +143,8 @@ single level breaks scrolling for everything below it.
 
 Same rule horizontally: in a flex row, `min-width: 0` is required on any child that should shrink.
 Without it, long text overflows, table cells refuse to shrink, and side-by-side panes blow each
-other out.
+other out. **This rule must also be applied at every level of the chain** — a missing `min-width: 0`
+at any ancestor breaks containment for everything below it.
 
 ```css
 .row {
@@ -150,9 +157,16 @@ other out.
 }
 ```
 
+**`align-items: center` silently breaks this chain.** When a flex container sets `align-items:
+center` (or `flex-start`/`flex-end`), its children become intrinsic-width — sized by their content,
+not by the parent. A `min-width: 0` on a child inside a `center`-aligned container has no effect
+because there is no upstream definite width to bound it. Use `align-items: stretch` (the default)
+on any container whose children must participate in a width-constrained chain.
+
 When a layout misbehaves — a scroll container that doesn't scroll, content that overflows the
 viewport, a row that won't shrink — the cause is almost always a missing `min-height: 0` or
-`min-width: 0`. The full set of layout recipes is in `docs/standards/layout.md`.
+`min-width: 0`, or an `align-items` override that makes children intrinsic-width. The full set of
+layout recipes is in `docs/standards/layout.md`.
 
 ### One scroll container per area
 

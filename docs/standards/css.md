@@ -139,6 +139,12 @@ Each scrollable area must have exactly one scroll container. Page scroll, panel 
 component-internal scroll must not stack within the same area. The recipes for assigning scroll
 ownership are in [Layout](./layout.md).
 
+`overflow: hidden` is permitted only for decorative clipping — when a border-radius must clip a
+child image or an absolutely-positioned overlay. It must never be used to compensate for an
+unconstrained layout. Content escaping its container is a signal that a `min-width: 0`,
+`min-height: 0`, or `align-items: stretch` correction is needed upstream, not that the symptom
+should be hidden.
+
 ---
 
 ## Layout Ownership Summary

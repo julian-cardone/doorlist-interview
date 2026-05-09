@@ -88,11 +88,50 @@ A flex child that should shrink horizontally must declare `min-width: 0`.
 }
 ```
 
+This rule must be applied at every level of a flex row chain that should shrink. Skipping a single
+level breaks containment for everything below it.
+
 This rule applies heavily to:
 
 - Table cells that contain long text or arbitrary content.
 - Flex panes in side-by-side layouts.
 - Any flex child whose content width is not bounded by the design.
+
+---
+
+## `align-items` and Width Inheritance
+
+A flex container's `align-items` property determines how children are sized on the cross axis. The
+default is `stretch`, which makes children fill the container's full cross-axis allocation. This is
+what makes `min-width: 0` effective for children of a flex column: the parent allocates a definite
+width and the child is bounded by it.
+
+`align-items: center`, `flex-start`, or `flex-end` breaks this. Children are no longer stretched to
+fill the parent — they size themselves to their content. A `min-width: 0` declaration on a child
+that sits inside a `center`-aligned parent has no effect: there is no upstream definite width for it
+to be bounded by.
+
+```css
+/* WRONG: children of this column become intrinsic-width.
+   min-width: 0 on descendants has no effect. */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* RIGHT: children fill the column's width. min-width: 0
+   constraints on descendants are honoured. */
+.page {
+  display: flex;
+  flex-direction: column;
+  /* align-items: stretch is the default — do not override it */
+}
+```
+
+Use `align-items: center` only for visual centering of fixed-size decorative elements where
+intrinsic-width behavior is intentional. Never use it on a container whose children are expected to
+participate in a width-constrained layout chain.
 
 ---
 
@@ -235,6 +274,25 @@ must document the reason in a comment.
 
 ---
 
+## `overflow: hidden` — Decorative Clipping Only
+
+`overflow: hidden` is permitted only when clipping is decorative: a border-radius cutting an inner
+image or iframe, or an absolutely-positioned overlay that bleeds outside a positioned ancestor.
+
+```css
+/* Allowed: clips a child image to the card's rounded corners */
+.card {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+```
+
+It must never be used to compensate for an unconstrained layout. If content escapes its container,
+the fix is to locate the missing `min-width: 0` or `min-height: 0` in the chain, or to correct
+`align-items` on the container — not to hide the symptom with `overflow: hidden`.
+
+---
+
 ## Common Failures
 
 The patterns above prevent the following recurring failures:
@@ -243,8 +301,13 @@ The patterns above prevent the following recurring failures:
   constrained height, and content overflows the viewport instead of scrolling.
 - A flex row child whose content forces the row wider than the parent. The fix is `min-width: 0` on
   the child.
+- A `min-width: 0` declaration that has no effect because an ancestor uses `align-items: center`,
+  making the child intrinsic-width. The fix is to remove the `align-items` override (revert to
+  `stretch`) on the ancestor that starts the constrained chain.
 - A reusable component that declares its own `overflow` or `max-height`. The component cannot be
   reused inside a fixed pane and a fully-scrolling page.
+- `overflow: hidden` used to suppress content escaping its container. The symptom disappears but the
+  root cause — a missing constraint in the chain — remains.
 - Stacked scroll containers. The fix is to remove the inner scroll and let the outer pane own the
   boundary.
 
