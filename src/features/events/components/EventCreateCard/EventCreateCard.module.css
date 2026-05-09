@@ -1,16 +1,19 @@
 .card {
   display: flex;
   flex: 1;
+  min-width: 0;
 }
 
 .formArea {
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 0;
 }
 
 .pickerArea {
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 0;
 }
