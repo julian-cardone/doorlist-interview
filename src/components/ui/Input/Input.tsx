@@ -6,6 +6,7 @@ type InputVariant = "title" | "field" | "pill";
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   variant?: InputVariant;
   textPrefix?: ReactNode;
+  textSuffix?: ReactNode;
 };
 
 function cx(...classes: Array<string | undefined | false>) {
@@ -17,6 +18,7 @@ export function Input({
   className,
   required,
   textPrefix,
+  textSuffix,
   placeholder,
   ...props
 }: Props) {
@@ -44,6 +46,8 @@ export function Input({
           </span>
         )}
       </span>
+
+      {textSuffix && <span className={styles.pillSuffix}>{textSuffix}</span>}
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import { EventCreateForm } from "../EventCreateForm/EventCreateForm";
 import { EventCoverPicker } from "../EventCoverPicker/EventCoverPicker";
-import type { EventFormData } from "../../models/event";
 import styles from "./EventCreateCard.module.css";
+import type { EventFormModel } from "../../models/event.model";
 
 type EventCreateCardProps = {
-  onSubmit: (data: EventFormData) => void;
+  onSubmit: (data: EventFormModel) => void;
   isSubmitting?: boolean;
 };
 

@@ -29,6 +29,14 @@
   color: var(--color-text-muted);
 }
 
+.pillSuffix {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  color: var(--color-text-muted);
+}
+
 /* ── Input area ───────────────────────────────────────────────────────────── */
 /* Positioning context for the real input and fake placeholder overlay. */
 

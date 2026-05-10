@@ -1,0 +1,26 @@
+/* ── Drawer ───────────────────────────────────────────────────────────────── */
+/* Reusable sliding panel. Parent controls open/closed state. */
+
+.drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 20;
+
+  height: 100%;
+  width: 22rem;
+
+  transform: translateX(100%);
+  transition: transform 200ms ease;
+
+  overflow-y: auto;
+
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
+}
+
+/* Visible state. */
+.open {
+  transform: translateX(0);
+}

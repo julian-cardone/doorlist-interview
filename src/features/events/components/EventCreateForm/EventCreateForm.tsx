@@ -1,16 +1,19 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../../components/ui/Input/Input";
 import { Button } from "../../../../components/ui/Button/Button";
 import { EventDateRow } from "../EventDateRow/EventDateRow";
-import { EventFormSchema, type EventFormData } from "../../models/event";
 import { isRequiredField } from "../../../../lib/form";
+import { FloatingEmojis } from "../FloatingEmojis/FloatingEmojis";
+import { EventHostRow } from "../EventHostRow/EventHostRow";
 import styles from "./EventCreateForm.module.css";
+import { EventFormSchema, type EventFormModel } from "../../models/event.model";
 
 const REACTION_EMOJIS = ["", "❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
 
 type EventCreateFormProps = {
-  onSubmit: (data: EventFormData) => void;
+  onSubmit: (data: EventFormModel) => void;
   isSubmitting?: boolean;
 };
 
@@ -18,19 +21,59 @@ export function EventCreateForm({
   onSubmit,
   isSubmitting,
 }: EventCreateFormProps) {
+  const [hosts, setHosts] = useState<string[]>([]);
+
   const {
     register,
     handleSubmit,
     watch,
     setValue,
     formState: { errors, isValid },
-  } = useForm<EventFormData>({
+  } = useForm<EventFormModel>({
     resolver: zodResolver(EventFormSchema),
     mode: "onChange",
+    defaultValues: { hostNames: [] },
   });
+
+  function handleAddHost(name: string) {
+    const updated = [...hosts, name];
+    setHosts(updated);
+    setValue("hostNames", updated, { shouldValidate: true });
+  }
+
+  function handleRemoveHost(index: number) {
+    const updated = hosts.filter((_, idx) => idx !== index);
+    setHosts(updated);
+    setValue("hostNames", updated, { shouldValidate: true });
+  }
+
+  useEffect(() => {
+    // temporary set start and end dates for testing
+    const now = new Date();
+    const inOneHour = new Date(now.getTime() + 60 * 60 * 1000);
+    setValue("startAt", now.toISOString().slice(0, 16), {
+      shouldValidate: true,
+    });
+    setValue("endAt", inOneHour.toISOString().slice(0, 16), {
+      shouldValidate: true,
+    });
+  }, [setValue]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <FloatingEmojis
+        emoji={watch("reaction") ?? ""}
+        zIndex={0}
+        count={5}
+        speedScale={0.6}
+      />
+      <FloatingEmojis
+        emoji={watch("reaction") ?? ""}
+        zIndex={2}
+        count={5}
+        sizeScale={1.4}
+        speedScale={1.4}
+      />
       <div className={styles.rows}>
         <div className={styles.row}>
           <Input
@@ -44,17 +87,13 @@ export function EventCreateForm({
             <span className={styles.fieldError}>{errors.title.message}</span>
           )}
         </div>
-        {/* <div className={styles.rowDivider} /> */}
 
         <div className={styles.row}>
-          <div className={styles.hostRow}>
-            <div className={styles.avatarStack}>
-              <span className={styles.avatar} />
-              <span className={styles.avatar} />
-              <span className={styles.avatar} />
-            </div>
-            <Button variant="ghost">Add host</Button>
-          </div>
+          <EventHostRow
+            hosts={hosts}
+            onAdd={handleAddHost}
+            onRemove={handleRemoveHost}
+          />
         </div>
         <div className={styles.row}>
           <EventDateRow
@@ -86,27 +125,25 @@ export function EventCreateForm({
             {...register("description")}
           />
         </div>
-        <div className={styles.row}>
-          <span className={styles.rowIcon}>
-            <PhotoIcon />
-          </span>
-          <Button variant="ghost">ADD PHOTOS</Button>
-        </div>
-        <div className={styles.rowDivider} />
       </div>
 
       <div className={styles.bottomBar}>
         <div className={styles.reactions}>
-          {REACTION_EMOJIS.map((emoji) => (
-            <button
-              key={emoji}
-              type="button"
-              className={styles.reactionBtn}
-              aria-label={emoji}
-            >
-              {emoji}
-            </button>
-          ))}
+          {REACTION_EMOJIS.map((emoji) => {
+            const selected = emoji !== "" && watch("reaction") === emoji;
+            return (
+              <button
+                key={emoji || "none"}
+                type="button"
+                className={`${styles.reactionBtn}${selected ? ` ${styles.reactionBtnSelected}` : ""}`}
+                aria-label={emoji || "No reaction"}
+                aria-pressed={selected}
+                onClick={() => setValue("reaction", selected ? "" : emoji)}
+              >
+                {emoji}
+              </button>
+            );
+          })}
         </div>
       </div>
       <Button
@@ -154,25 +191,6 @@ function NotesIcon() {
       <line x1="21" y1="6" x2="3" y2="6" />
       <line x1="21" y1="14" x2="3" y2="14" />
       <line x1="17" y1="18" x2="3" y2="18" />
-    </svg>
-  );
-}
-
-function PhotoIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <circle cx="8.5" cy="8.5" r="1.5" />
-      <polyline points="21 15 16 10 5 21" />
     </svg>
   );
 }

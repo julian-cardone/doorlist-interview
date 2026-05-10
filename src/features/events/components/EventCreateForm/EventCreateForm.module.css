@@ -29,44 +29,31 @@
   flex-shrink: 0;
 }
 
-.hostRow {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.avatarStack {
-  display: flex;
-}
-
-.avatar {
-  display: block;
-  width: 1.375rem;
-  height: 1.375rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #c084fc, #818cf8);
-  border: 0.125rem solid rgba(255, 255, 255, 0.8);
-  margin-left: -0.375rem;
-}
-
-.avatar:first-child {
-  margin-left: 0;
-  background: linear-gradient(135deg, #f472b6, #fb923c);
-}
-
-.avatar:nth-child(2) {
-  background: linear-gradient(135deg, #34d399, #60a5fa);
-}
-
 .bottomBar {
   display: flex;
   flex-direction: column;
+  width: 102%;
 }
 
 .reactions {
   display: flex;
   gap: 0.5rem;
   overflow-x: scroll;
+  padding-right: 1.25rem;
+
+  mask-image: linear-gradient(
+    to right,
+    black 0,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black 0,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
 }
 
 .reactionBtn {
@@ -86,6 +73,10 @@
 
 .reactionBtn:hover {
   background: rgba(0, 0, 0, 0.1);
+}
+
+.reactionBtnSelected {
+  border: 2px solid rgba(0, 0, 0, 0.35);
 }
 
 .fieldError {
