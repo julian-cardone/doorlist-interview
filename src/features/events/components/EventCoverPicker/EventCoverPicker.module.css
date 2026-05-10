@@ -4,10 +4,12 @@
   gap: 1rem;
 }
 
+/* ── Cover preview ── */
+
 .coverImageBox {
   aspect-ratio: 1;
   border-radius: 1rem;
-  overflow: hidden; /* for corners */
+  overflow: hidden;
 }
 
 .coverPlaceholder {
@@ -16,16 +18,65 @@
   background: var(--gradient-cover);
 }
 
+.coverImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Thumbnail strip ── */
+
 .thumbnails {
   display: flex;
   gap: 0.5rem;
-  overflow-x: scroll;
+  overflow-x: auto;
+
+  mask-image: linear-gradient(
+    to right,
+    black 0,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black 0,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
 }
 
 .thumbnail {
-  width: 3.625rem;
+  width: 5rem;
   aspect-ratio: 1;
   border-radius: 0.625rem;
-  width: 5rem;
   flex-shrink: 0;
+  cursor: pointer;
+  padding: 0;
+  border: 2px solid transparent;
+  background: none;
+  overflow: hidden;
+}
+
+.thumbnailOpenPicker {
+  background: rgba(80, 80, 80, 0.12);
+  backdrop-filter: blur(0.75rem);
+  -webkit-backdrop-filter: blur(0.75rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.thumbnailSelected {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }

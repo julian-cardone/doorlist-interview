@@ -6,4 +6,21 @@
   display: flex;
   flex-direction: column;
   padding: 7rem 15rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(6rem) brightness(1.6);
+  opacity: 0.6;
+  transform: scale(1.15); /* prevents blur edge fringe */
+  z-index: 0;
+}
+
+.photoDrawer {
+  width: 24rem;
 }

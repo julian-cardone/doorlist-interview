@@ -15,11 +15,13 @@ const REACTION_EMOJIS = ["", "❤️", "🎉", "🔥", "✨", "✔️", "👀", 
 type EventCreateFormProps = {
   onSubmit: (data: EventFormModel) => void;
   isSubmitting?: boolean;
+  coverImageUrl?: string;
 };
 
 export function EventCreateForm({
   onSubmit,
   isSubmitting,
+  coverImageUrl,
 }: EventCreateFormProps) {
   const [hosts, setHosts] = useState<string[]>([]);
 
@@ -46,6 +48,10 @@ export function EventCreateForm({
     setHosts(updated);
     setValue("hostNames", updated, { shouldValidate: true });
   }
+
+  useEffect(() => {
+    setValue("coverImageUrl", coverImageUrl, { shouldValidate: false });
+  }, [coverImageUrl, setValue]);
 
   useEffect(() => {
     // temporary set start and end dates for testing

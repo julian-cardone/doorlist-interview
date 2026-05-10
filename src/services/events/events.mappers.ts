@@ -15,6 +15,7 @@ export function mapEventFormToEventInsert(
     location: emptyToNull(form.location),
     description: emptyToNull(form.description),
     theme_emoji: emptyToNull(form.reaction),
+    cover_image_url: emptyToNull(form.coverImageUrl),
   };
 }
 
