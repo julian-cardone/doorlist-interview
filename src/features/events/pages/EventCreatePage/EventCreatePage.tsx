@@ -37,6 +37,7 @@ export default function EventCreatePage() {
           style={{ backgroundImage: `url(${coverImageUrl})` }}
         />
       )}
+      <div className={styles.bgOverlay} />
       <EventCreateCard
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}

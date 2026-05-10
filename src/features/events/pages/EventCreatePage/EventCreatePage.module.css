@@ -21,6 +21,13 @@
   z-index: 0;
 }
 
+.bgOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 0;
+}
+
 .photoDrawer {
   width: 24rem;
 }
