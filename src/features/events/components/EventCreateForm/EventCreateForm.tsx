@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../../components/ui/Input/Input";
 import { Button } from "../../../../components/ui/Button/Button";
 import { EventDateRow } from "../EventDateRow/EventDateRow";
-import { EventFormSchema, type EventFormData } from "../../models/event";
 import { isRequiredField } from "../../../../lib/form";
 import { FloatingEmojis } from "../FloatingEmojis/FloatingEmojis";
 import { EventHostRow } from "../EventHostRow/EventHostRow";
 import styles from "./EventCreateForm.module.css";
+import { EventFormSchema, type EventFormModel } from "../../models/event.model";
 
 const REACTION_EMOJIS = ["", "❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
 
 type EventCreateFormProps = {
-  onSubmit: (data: EventFormData) => void;
+  onSubmit: (data: EventFormModel) => void;
   isSubmitting?: boolean;
 };
 
@@ -29,10 +29,35 @@ export function EventCreateForm({
     watch,
     setValue,
     formState: { errors, isValid },
-  } = useForm<EventFormData>({
+  } = useForm<EventFormModel>({
     resolver: zodResolver(EventFormSchema),
     mode: "onChange",
+    defaultValues: { hostNames: [] },
   });
+
+  function handleAddHost(name: string) {
+    const updated = [...hosts, name];
+    setHosts(updated);
+    setValue("hostNames", updated, { shouldValidate: true });
+  }
+
+  function handleRemoveHost(index: number) {
+    const updated = hosts.filter((_, idx) => idx !== index);
+    setHosts(updated);
+    setValue("hostNames", updated, { shouldValidate: true });
+  }
+
+  useEffect(() => {
+    // temporary set start and end dates for testing
+    const now = new Date();
+    const inOneHour = new Date(now.getTime() + 60 * 60 * 1000);
+    setValue("startAt", now.toISOString().slice(0, 16), {
+      shouldValidate: true,
+    });
+    setValue("endAt", inOneHour.toISOString().slice(0, 16), {
+      shouldValidate: true,
+    });
+  }, [setValue]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -62,15 +87,12 @@ export function EventCreateForm({
             <span className={styles.fieldError}>{errors.title.message}</span>
           )}
         </div>
-        {/* <div className={styles.rowDivider} /> */}
 
         <div className={styles.row}>
           <EventHostRow
             hosts={hosts}
-            onAdd={(name) => setHosts((prev) => [...prev, name])}
-            onRemove={(i) =>
-              setHosts((prev) => prev.filter((_, idx) => idx !== i))
-            }
+            onAdd={handleAddHost}
+            onRemove={handleRemoveHost}
           />
         </div>
         <div className={styles.row}>
@@ -103,13 +125,6 @@ export function EventCreateForm({
             {...register("description")}
           />
         </div>
-        {/* <div className={styles.row}>
-          <span className={styles.rowIcon}>
-            <PhotoIcon />
-          </span>
-          <Button variant="ghost">ADD PHOTOS</Button>
-        </div> */}
-        {/* <div className={styles.rowDivider} /> */}
       </div>
 
       <div className={styles.bottomBar}>
@@ -134,7 +149,7 @@ export function EventCreateForm({
       <Button
         variant="primary"
         type="submit"
-        disabled={!isValid || isSubmitting || hosts.length === 0}
+        disabled={!isValid || isSubmitting}
       >
         {isSubmitting ? "Creating…" : "Create Event"}
       </Button>
