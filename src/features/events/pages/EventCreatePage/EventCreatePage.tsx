@@ -12,7 +12,8 @@ export default function EventCreatePage() {
   const navigate = useNavigate();
 
   const [isPhotoPickerOpen, setIsPhotoPickerOpen] = useState(false);
-  const [coverImageUrl, setCoverImageUrl] = useState<string>("/cover-default.png");
+  const [coverImageUrl, setCoverImageUrl] =
+    useState<string>("/cover-default.png");
 
   async function handleSubmit(data: EventFormModel) {
     if (isSubmitting) return;
