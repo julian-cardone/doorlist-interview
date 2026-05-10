@@ -9,6 +9,7 @@ import { FloatingEmojis } from "../FloatingEmojis/FloatingEmojis";
 import { EventHostRow } from "../EventHostRow/EventHostRow";
 import styles from "./EventCreateForm.module.css";
 import { EventFormSchema, type EventFormModel } from "../../models/event.model";
+import { useHorizontalWheelScroll } from "../../../../hooks/useHorizontalWheelScroll";
 
 const REACTION_EMOJIS = ["", "❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
 
@@ -24,6 +25,7 @@ export function EventCreateForm({
   coverImageUrl,
 }: EventCreateFormProps) {
   const [hosts, setHosts] = useState<string[]>([]);
+  const horizontalScroll = useHorizontalWheelScroll<HTMLDivElement>();
 
   const {
     register,
@@ -134,7 +136,11 @@ export function EventCreateForm({
       </div>
 
       <div className={styles.bottomBar}>
-        <div className={styles.reactions}>
+        <div
+          className={`${styles.reactions} scrollX`}
+          ref={horizontalScroll.ref}
+          onWheel={horizontalScroll.onWheel}
+        >
           {REACTION_EMOJIS.map((emoji) => {
             const selected = emoji !== "" && watch("reaction") === emoji;
             return (

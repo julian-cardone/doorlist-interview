@@ -30,7 +30,6 @@
 .thumbnails {
   display: flex;
   gap: 0.5rem;
-  overflow-x: auto;
 
   mask-image: linear-gradient(
     to right,

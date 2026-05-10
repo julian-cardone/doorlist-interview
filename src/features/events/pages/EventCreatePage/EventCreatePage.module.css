@@ -35,5 +35,5 @@
 }
 
 .photoDrawer {
-  width: 24rem;
+  max-width: 100%;
 }

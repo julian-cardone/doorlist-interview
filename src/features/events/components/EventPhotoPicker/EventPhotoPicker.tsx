@@ -111,7 +111,7 @@ export function EventPhotoPicker({ onBack, onSelectPhoto }: Props) {
 
       {search ? (
         <div className={styles.emptyState}>
-          <span className={styles.emptyIcon}>🔍</span>
+          <img src="/icons/try-something-else.svg" alt="" />
           <p className={styles.emptyTitle}>Try something else!</p>
           <p className={styles.emptySubtext}>
             Couldn't find what you were looking for. Try a different search.

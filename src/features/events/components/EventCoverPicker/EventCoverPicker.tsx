@@ -1,3 +1,4 @@
+import { useHorizontalWheelScroll } from "../../../../hooks/useHorizontalWheelScroll";
 import styles from "./EventCoverPicker.module.css";
 
 function cx(...classes: Array<string | undefined | false>) {
@@ -36,6 +37,8 @@ export function EventCoverPicker({
   onSelect,
   onOpenPhotoPicker,
 }: EventCoverPickerProps) {
+  const horizontalScroll = useHorizontalWheelScroll<HTMLDivElement>();
+
   return (
     <div className={styles.picker}>
       <div className={styles.coverImageBox}>
@@ -50,7 +53,11 @@ export function EventCoverPicker({
         )}
       </div>
 
-      <div className={styles.thumbnails}>
+      <div
+        className={`${styles.thumbnails} scrollX`}
+        ref={horizontalScroll.ref}
+        onWheel={horizontalScroll.onWheel}
+      >
         <button
           type="button"
           className={cx(styles.thumbnail, styles.thumbnailOpenPicker)}
