@@ -8,6 +8,7 @@ export const EventFormSchema = z.object({
   location: z.string().optional(),
   description: z.string().optional(),
   reaction: z.string().optional(),
+  coverImageUrl: z.string().optional(),
 });
 
 export type EventFormModel = z.infer<typeof EventFormSchema>;

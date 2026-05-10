@@ -38,7 +38,6 @@
 .reactions {
   display: flex;
   gap: 0.5rem;
-  overflow-x: scroll;
   padding-right: 1.25rem;
 
   mask-image: linear-gradient(

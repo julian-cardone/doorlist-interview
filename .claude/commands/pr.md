@@ -1,6 +1,8 @@
 # /pr
 
-Open a pull request for the current branch.
+Open a pull request for the current branch. Execute all steps without asking for confirmation —
+proceed autonomously unless something is genuinely broken (missing issue, no commits, branch name
+mismatch).
 
 ## Pre-flight
 

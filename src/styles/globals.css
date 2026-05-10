@@ -2,3 +2,58 @@ body {
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 }
+
+/* ── Global vertical scrollbar styling ──────────────────────────────────── */
+/* Applies to all vertical scrollbars by default. */
+:root {
+  --scrollbar-size: 0rem;
+
+  --scrollbar-thumb: rgba(80, 80, 80, 0.28);
+
+  --scrollbar-thumb-hover: rgba(80, 80, 80, 0.45);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* Chrome / Safari / Edge */
+*::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+/* reveal scrollbar on hover */
+*:hover {
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}
+
+*:hover::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* ── Horizontal scrolling ────────────────────────────────────────────────── */
+/* Scrollbar always takes space, but is visually hidden until hover. */
+.scrollX {
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding-bottom: var(--scrollbar-size);
+
+  scrollbar-gutter: stable;
+}
