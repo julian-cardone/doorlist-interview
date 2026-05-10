@@ -5,8 +5,6 @@ function cx(...classes: Array<string | undefined | false>) {
 }
 
 const SEEDS = [
-  "ev1",
-  "ev2",
   "ev3",
   "ev4",
   "ev5",
@@ -15,8 +13,8 @@ const SEEDS = [
   "ev8",
   "ev9",
   "ev10",
-  "ev11",
-  "ev12",
+  "ev13",
+  "ev14",
 ];
 
 const SAMPLE_PHOTOS = [

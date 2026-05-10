@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Input } from "../../../../components/ui/Input/Input";
 import styles from "./EventHostRow.module.css";
+import { useHorizontalWheelScroll } from "../../../../hooks/useHorizontalWheelScroll";
 
 type EventHostRowProps = {
   hosts: string[];
@@ -34,6 +35,7 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const addInputRef = useRef<HTMLInputElement>(null);
   const prevHostsLengthRef = useRef(hosts.length);
+  const horizontalScroll = useHorizontalWheelScroll<HTMLDivElement>();
 
   useEffect(() => {
     if (hosts.length > prevHostsLengthRef.current) {
@@ -116,7 +118,11 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
         {addHostRow}
       </div>
 
-      <div className={styles.stackRow}>
+      <div
+        className={`${styles.stackRow} scrollX`}
+        ref={horizontalScroll.ref}
+        onWheel={horizontalScroll.onWheel}
+      >
         {hosts.map((name, i) => {
           const isSelected = i === clampedIndex;
           const cls = [

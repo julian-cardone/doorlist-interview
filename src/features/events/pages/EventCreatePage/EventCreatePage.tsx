@@ -46,6 +46,12 @@ export default function EventCreatePage() {
         onOpenPhotoPicker={() => setIsPhotoPickerOpen(true)}
       />
 
+      {isPhotoPickerOpen && (
+        <div
+          className={styles.drawerBackdrop}
+          onClick={() => setIsPhotoPickerOpen(false)}
+        />
+      )}
       <Drawer isOpen={isPhotoPickerOpen} className={styles.photoDrawer}>
         <EventPhotoPicker
           onBack={() => setIsPhotoPickerOpen(false)}

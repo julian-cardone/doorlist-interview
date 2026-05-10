@@ -28,6 +28,12 @@
   z-index: 0;
 }
 
+.drawerBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 19;
+}
+
 .photoDrawer {
   width: 24rem;
 }
