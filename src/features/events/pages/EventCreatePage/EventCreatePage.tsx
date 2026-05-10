@@ -12,7 +12,7 @@ export default function EventCreatePage() {
     if (isSubmitting) return;
     try {
       const event = await submit(data);
-      
+
       navigate(`/events/${event.id}`);
     } catch {
       // error is captured in useAsync state; no navigation on failure

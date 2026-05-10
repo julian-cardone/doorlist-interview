@@ -113,7 +113,9 @@ export function FloatingEmojis({
         p.rot = (p.rot + p.omega) % 360;
         const absOmega = Math.abs(p.omega);
         if (absOmega > OMEGA_FLOOR) {
-          p.omega = Math.sign(p.omega) * Math.max(absOmega * OMEGA_FRICTION, OMEGA_FLOOR);
+          p.omega =
+            Math.sign(p.omega) *
+            Math.max(absOmega * OMEGA_FRICTION, OMEGA_FLOOR);
         }
 
         // Friction
@@ -145,7 +147,8 @@ export function FloatingEmojis({
               p.vy = (p.vy / boostedSpeed) * maxSpeed;
             }
             const approachSpeed = -dot;
-            p.omega += Math.sign(p.omega || 1) * approachSpeed * OMEGA_BOOST_SCALE;
+            p.omega +=
+              Math.sign(p.omega || 1) * approachSpeed * OMEGA_BOOST_SCALE;
             const absO = Math.abs(p.omega);
             if (absO > OMEGA_MAX) p.omega = Math.sign(p.omega) * OMEGA_MAX;
           }
