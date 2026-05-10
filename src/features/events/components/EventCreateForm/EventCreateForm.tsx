@@ -134,7 +134,7 @@ export function EventCreateForm({
       <Button
         variant="primary"
         type="submit"
-        disabled={!isValid || isSubmitting}
+        disabled={!isValid || isSubmitting || hosts.length === 0}
       >
         {isSubmitting ? "Creating…" : "Create Event"}
       </Button>

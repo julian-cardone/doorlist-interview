@@ -29,16 +29,31 @@
   flex-shrink: 0;
 }
 
-
 .bottomBar {
   display: flex;
   flex-direction: column;
+  width: 102%;
 }
 
 .reactions {
   display: flex;
   gap: 0.5rem;
   overflow-x: scroll;
+  padding-right: 1.25rem;
+
+  mask-image: linear-gradient(
+    to right,
+    black 0,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black 0,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
 }
 
 .reactionBtn {

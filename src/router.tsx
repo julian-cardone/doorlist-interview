@@ -7,6 +7,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     Component: App,
+    errorElement: <div>Page not found</div>,
     children: [
       { path: "events/create", Component: EventCreatePage },
       { path: "events/:id", Component: EventViewPage },

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Input } from "../../../../components/ui/Input/Input";
 import styles from "./EventHostRow.module.css";
 
 type EventHostRowProps = {
@@ -60,8 +61,24 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
     setSelectedIndex((prev) => Math.max(0, prev - 1));
   }
 
-  const collapsed = hosts.length >= 3;
+  // Empty state — standalone required pill matching Location/Description
+  if (hosts.length === 0) {
+    return (
+      <Input
+        variant="pill"
+        textPrefix={<PlusIcon />}
+        placeholder="Add Host"
+        required
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+        onBlur={confirm}
+      />
+    );
+  }
+
   const clampedIndex = Math.min(selectedIndex, hosts.length - 1);
+  const activeHost = hosts[clampedIndex];
 
   const addHostRow = (
     <div className={styles.hostRow}>
@@ -80,81 +97,50 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
     </div>
   );
 
-  if (collapsed) {
-    const activeHost = hosts[clampedIndex];
-    return (
-      <div className={styles.container}>
-        <div className={styles.group}>
-          <div className={styles.hostRow}>
-            <HostAvatar
-              gradient={gradientFor(activeHost)}
-              name={activeHost}
-            />
-            <span className={styles.hostName}>{activeHost}</span>
-            <button
-              type="button"
-              className={styles.removeCircleBtn}
-              aria-label={`Remove ${activeHost}`}
-              onClick={handleRemove}
-            >
-              <MinusIcon />
-            </button>
-          </div>
-          <div className={styles.groupDivider} />
-          {addHostRow}
-        </div>
-
-        <div className={styles.stackRow}>
-          {hosts.map((name, i) => {
-            const isSelected = i === clampedIndex;
-            const cls = [
-              styles.stackAvatar,
-              i > 0 ? styles.stackAvatarOffset : "",
-              isSelected ? styles.stackAvatarSelected : "",
-            ]
-              .filter(Boolean)
-              .join(" ");
-            return (
-              <button
-                key={i}
-                type="button"
-                className={cls}
-                style={{
-                  background: gradientFor(name),
-                  zIndex: isSelected ? hosts.length + 1 : hosts.length - i,
-                }}
-                aria-label={name}
-                aria-pressed={isSelected}
-                onClick={() => setSelectedIndex(i)}
-              />
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={styles.container}>
       <div className={styles.group}>
-        {hosts.map((name, i) => (
-          <div key={i}>
-            <div className={styles.hostRow}>
-              <HostAvatar gradient={gradientFor(name)} name={name} />
-              <span className={styles.hostName}>{name}</span>
-              <button
-                type="button"
-                className={styles.removeCircleBtn}
-                aria-label={`Remove ${name}`}
-                onClick={() => onRemove(i)}
-              >
-                <MinusIcon />
-              </button>
-            </div>
-            <div className={styles.groupDivider} />
-          </div>
-        ))}
+        <div className={styles.hostRow}>
+          <HostAvatar gradient={gradientFor(activeHost)} name={activeHost} />
+          <span className={styles.hostName}>{activeHost}</span>
+          <button
+            type="button"
+            className={styles.removeCircleBtn}
+            aria-label={`Remove ${activeHost}`}
+            onClick={handleRemove}
+          >
+            <MinusIcon />
+          </button>
+        </div>
+        <div className={styles.groupDivider} />
         {addHostRow}
+      </div>
+
+      <div className={styles.stackRow}>
+        {hosts.map((name, i) => {
+          const isSelected = i === clampedIndex;
+          const cls = [
+            styles.stackAvatar,
+            i > 0 ? styles.stackAvatarOffset : "",
+            isSelected ? styles.stackAvatarSelected : "",
+          ]
+            .filter(Boolean)
+            .join(" ");
+          return (
+            <button
+              key={i}
+              type="button"
+              className={cls}
+              style={{
+                background: gradientFor(name),
+                zIndex: isSelected ? hosts.length + 1 : hosts.length - i,
+              }}
+              aria-label={name}
+              aria-pressed={isSelected}
+              onClick={() => setSelectedIndex(i)}
+            />
+          );
+        })}
       </div>
     </div>
   );
