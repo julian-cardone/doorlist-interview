@@ -37,7 +37,8 @@ export function EventCoverPicker({
   onSelect,
   onOpenPhotoPicker,
 }: EventCoverPickerProps) {
-  const horizontalScroll = useHorizontalWheelScroll<HTMLDivElement>();
+  const { ref: horizontalScrollRef, onWheel: handleHorizontalWheel } =
+    useHorizontalWheelScroll<HTMLDivElement>();
 
   return (
     <div className={styles.picker}>
@@ -55,8 +56,8 @@ export function EventCoverPicker({
 
       <div
         className={`${styles.thumbnails} scrollX`}
-        ref={horizontalScroll.ref}
-        onWheel={horizontalScroll.onWheel}
+        ref={horizontalScrollRef}
+        onWheel={handleHorizontalWheel}
       >
         <button
           type="button"

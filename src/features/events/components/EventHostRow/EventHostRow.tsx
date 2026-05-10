@@ -35,7 +35,8 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const addInputRef = useRef<HTMLInputElement>(null);
   const prevHostsLengthRef = useRef(hosts.length);
-  const horizontalScroll = useHorizontalWheelScroll<HTMLDivElement>();
+  const { ref: horizontalScrollRef, onWheel: handleHorizontalWheel } =
+    useHorizontalWheelScroll<HTMLDivElement>();
 
   useEffect(() => {
     if (hosts.length > prevHostsLengthRef.current) {
@@ -120,8 +121,8 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
 
       <div
         className={`${styles.stackRow} scrollX`}
-        ref={horizontalScroll.ref}
-        onWheel={horizontalScroll.onWheel}
+        ref={horizontalScrollRef}
+        onWheel={handleHorizontalWheel}
       >
         {hosts.map((name, i) => {
           const isSelected = i === clampedIndex;

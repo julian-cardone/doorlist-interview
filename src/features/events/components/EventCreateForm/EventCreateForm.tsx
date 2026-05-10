@@ -25,7 +25,8 @@ export function EventCreateForm({
   coverImageUrl,
 }: EventCreateFormProps) {
   const [hosts, setHosts] = useState<string[]>([]);
-  const horizontalScroll = useHorizontalWheelScroll<HTMLDivElement>();
+  const { ref: horizontalScrollRef, onWheel: handleHorizontalWheel } =
+    useHorizontalWheelScroll<HTMLDivElement>();
 
   const {
     register,
@@ -138,8 +139,8 @@ export function EventCreateForm({
       <div className={styles.bottomBar}>
         <div
           className={`${styles.reactions} scrollX`}
-          ref={horizontalScroll.ref}
-          onWheel={horizontalScroll.onWheel}
+          ref={horizontalScrollRef}
+          onWheel={handleHorizontalWheel}
         >
           {REACTION_EMOJIS.map((emoji) => {
             const selected = emoji !== "" && watch("reaction") === emoji;
