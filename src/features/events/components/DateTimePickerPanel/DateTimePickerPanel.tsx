@@ -115,10 +115,10 @@ export function DateTimePickerPanel({
     <section className={styles.panel}>
       <header className={styles.header}>
         <div>
-          <p className={styles.eyebrow}>Event time</p>
+          <p className={styles.eyebrow}>Select Event Date & Time</p>
 
           <h2 className={styles.title}>
-            {mode === "start" ? "Start time" : "End time"}
+            {mode === "start" ? "Starting at..." : "Ending at..."}
           </h2>
         </div>
 

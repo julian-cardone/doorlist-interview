@@ -39,22 +39,17 @@ export function EventCoverActions({ event }: EventCoverActionsProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [pickerOpen]);
 
-  const copyToClipboard = async (url: string) => {
-    await navigator.clipboard.writeText(url);
-    alert("Event URL copied to clipboard");
-  };
-
   async function handleInvite() {
     const url = `${window.location.origin}/events/${event.id}`;
     if (typeof navigator.share === "function") {
       try {
         await navigator.share({ url, title: event.title });
       } catch {
-        // Sharing failed (e.g. user cancelled); fallback to clipboards
-        await copyToClipboard(url);
+        return;
       }
     } else {
-      await copyToClipboard(url);
+      await navigator.clipboard.writeText(url);
+      alert("Event URL copied to clipboard");
     }
   }
 

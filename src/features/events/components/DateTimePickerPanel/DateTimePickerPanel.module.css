@@ -1,11 +1,10 @@
 .panel {
   box-sizing: border-box;
 
-  width: min(26rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
-  overflow-y: auto;
+  overflow-y: hidden;
 
-  padding: 1.25rem;
+  padding: 2rem;
 
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 2rem;
