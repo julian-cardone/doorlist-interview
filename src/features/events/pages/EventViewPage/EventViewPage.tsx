@@ -13,21 +13,23 @@ export default function EventViewPage() {
   const [coverImageUrl, setCoverImageUrl] = useState("/cover-default.png");
 
   useEffect(() => {
-    if (id) {
-      handleFetch(id);
+    if (!id) return;
+    let isActive = true;
+    async function loadEvent(eventId: string) {
+      try {
+        const event = await fetch(eventId);
+        if (!isActive) return;
+        setEvent(event);
+        setCoverImageUrl(event.coverImageUrl || "/cover-default.png");
+      } catch {
+        // error is captured in useAsync state;
+      }
     }
-  }, [id]);
-
-  async function handleFetch(id: string) {
-    try {
-      const event = await fetch(id);
-      setEvent(event);
-      setCoverImageUrl(event.coverImageUrl || "/cover-default.png");
-    } catch {
-      // error is captured in useAsync state;
-      // no navigation on failure
-    }
-  }
+    loadEvent(id);
+    return () => {
+      isActive = false;
+    };
+  }, [id, fetch]);
 
   if (isfetchting) {
     return <div>Loading...</div>;
