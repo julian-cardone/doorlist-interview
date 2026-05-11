@@ -40,6 +40,12 @@ export const GRADIENTS = [
   "linear-gradient(135deg, #60a5fa, #818cf8)",
 ];
 
+export function gradientFor(name: string): string {
+  let hash = 0;
+  for (const ch of name) hash = (hash * 31 + ch.charCodeAt(0)) & 0x7fffffff;
+  return GRADIENTS[hash % GRADIENTS.length];
+}
+
 type Photo = {
   id: string;
   src: string;

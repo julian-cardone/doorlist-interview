@@ -5,15 +5,9 @@ import { useHorizontalWheelScroll } from "../../../../hooks/useHorizontalWheelSc
 import { PlusIcon } from "../../../../components/ui/icons/PlusIcon";
 import { MinusIcon } from "../../../../components/ui/icons/MinusIcon";
 import { cx } from "../../../../lib/cssUtils";
-import { GRADIENTS } from "../../../../lib/sampleData";
 import type { EventHostRowProps } from "./EventHostRowProps";
 import { Avatar } from "../../../../components/ui/Avatar/Avatar";
-
-function gradientFor(name: string): string {
-  let hash = 0;
-  for (const ch of name) hash = (hash * 31 + ch.charCodeAt(0)) & 0x7fffffff;
-  return GRADIENTS[hash % GRADIENTS.length];
-}
+import { gradientFor } from "../../../../lib/sampleData";
 
 export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
   const [inputValue, setInputValue] = useState("");

@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 import { cx } from "../../../lib/cssUtils";
 import styles from "./DateTimeInput.module.css";
+import { formatDatetime } from "../../../features/events/components/DateTimePickerPanel/dateTimePickerUtils";
 
 type DateTimeInputProps = Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -10,24 +11,6 @@ type DateTimeInputProps = Omit<
   placeholder?: string;
   displayClassName?: string;
 };
-
-function formatDatetime(value: string): string {
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  return [
-    date.toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    }),
-    date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-    }),
-  ].join(" ");
-}
 
 export function DateTimeInput({
   value,

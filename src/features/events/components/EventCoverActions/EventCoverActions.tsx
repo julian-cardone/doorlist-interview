@@ -1,6 +1,11 @@
 import { ShareIcon } from "../../../../components/ui/icons/ShareIcon";
 import { cx } from "../../../../lib/cssUtils";
+import type { EventViewModel } from "../../models/event.model";
 import styles from "./EventCoverActions.module.css";
+
+type EventCoverActionsProps = {
+  event: EventViewModel;
+};
 
 const ACTIONS = [
   {
@@ -15,11 +20,17 @@ const ACTIONS = [
   },
 ];
 
-export function EventCoverActions() {
+const coverImage = "/cover-default.png";
+export function EventCoverActions({ event }: EventCoverActionsProps) {
   return (
     <div className={styles.container}>
       <div className={styles.coverImageBox}>
-        <div className={styles.coverPlaceholder} />
+        <div
+          className={styles.coverPlaceholder}
+          style={{
+            backgroundImage: `url(${event.coverImageUrl || coverImage})`,
+          }}
+        />
       </div>
 
       <div className={styles.actions}>

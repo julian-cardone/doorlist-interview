@@ -67,3 +67,77 @@ export function combineState(state: TimeState): string {
 
   return toDateTimeInputValue(date);
 }
+
+export function formatDatetime(value: string): string {
+  if (!value) return "";
+
+  const date = new Date(value);
+
+  return [
+    date.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    }),
+    date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+    }),
+  ].join(" ");
+}
+
+export function formatDateRange(
+  startDate: Date,
+  endDate?: Date,
+): string {
+  const startOptions: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  };
+
+  if (endDate && startDate.toDateString() !== endDate.toDateString()) {
+    return `${startDate.toLocaleDateString("en-US", startOptions)} - ${endDate.getDate()}`;
+  }
+
+  return startDate.toLocaleDateString("en-US", startOptions);
+}
+
+export function formatTimeRange(
+  startTime: Date,
+  endTime?: Date,
+): string {
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  };
+
+  const startTimeStr = startTime.toLocaleTimeString("en-US", timeOptions);
+
+  if (endTime) {
+    const endTimeStr = endTime.toLocaleTimeString("en-US", timeOptions);
+    return `${startTimeStr} - ${endTimeStr}`;
+  }
+
+  return startTimeStr;
+}
+
+export function formatDateRangeFromString(
+  startDateStr: string,
+  endDateStr?: string,
+): string {
+  const startDate = new Date(startDateStr);
+  const endDate = endDateStr ? new Date(endDateStr) : undefined;
+  return formatDateRange(startDate, endDate);
+}
+
+export function formatTimeRangeFromString(
+  startDateStr: string,
+  endDateStr?: string,
+): string {
+  const startDate = new Date(startDateStr);
+  const endDate = endDateStr ? new Date(endDateStr) : undefined;
+  return formatTimeRange(startDate, endDate);
+}
+
