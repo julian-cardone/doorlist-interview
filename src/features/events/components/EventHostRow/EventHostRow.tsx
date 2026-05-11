@@ -9,13 +9,6 @@ import { GRADIENTS } from "../../../../lib/sampleData";
 import type { EventHostRowProps } from "./EventHostRowProps";
 import { Avatar } from "../../../../components/ui/Avatar/Avatar";
 
-function initials(name: string): string {
-  const parts = name.trim().split(/\s+/);
-  return parts.length >= 2
-    ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
-    : parts[0][0].toUpperCase();
-}
-
 function gradientFor(name: string): string {
   let hash = 0;
   for (const ch of name) hash = (hash * 31 + ch.charCodeAt(0)) & 0x7fffffff;
