@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "../../../../components/ui/Button/Button";
-import { cx } from "../../../../lib/cssUtils";
+import { DateTimeInput } from "../../../../components/ui/DateTimeInput/DateTimeInput";
 import styles from "./EventDateRow.module.css";
 
 type Props = {
@@ -9,24 +9,6 @@ type Props = {
   endAt?: string;
   onEndAtChange: (value: string) => void;
 };
-
-function formatDatetime(value: string): string {
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  return [
-    date.toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    }),
-    date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-    }),
-  ].join(" ");
-}
 
 export function EventDateRow({
   startAt,
@@ -49,10 +31,10 @@ export function EventDateRow({
           <div className={styles.row}>
             <span className={styles.label}>Starts</span>
 
-            <DateInput
+            <DateTimeInput
               value={startAt}
               placeholder="Select date & time"
-              ariaLabel="Start date and time"
+              aria-label="Start date and time"
               onChange={onStartAtChange}
             />
           </div>
@@ -61,10 +43,10 @@ export function EventDateRow({
             <span className={styles.label}>Ends</span>
 
             {showEnd ? (
-              <DateInput
+              <DateTimeInput
                 value={endAt ?? ""}
                 placeholder="Select date & time"
-                ariaLabel="End date and time"
+                aria-label="End date and time"
                 onChange={onEndAtChange}
               />
             ) : (
@@ -79,38 +61,6 @@ export function EventDateRow({
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-type DateInputProps = {
-  value: string;
-  placeholder: string;
-  ariaLabel: string;
-  onChange: (value: string) => void;
-};
-
-function DateInput({
-  value,
-  placeholder,
-  ariaLabel,
-  onChange,
-}: DateInputProps) {
-  return (
-    <div className={styles.dateValue}>
-      <span
-        className={cx(styles.dateDisplay, !value && styles.datePlaceholder)}
-      >
-        {value ? formatDatetime(value) : placeholder}
-      </span>
-
-      <input
-        type="datetime-local"
-        className={styles.dateInput}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        aria-label={ariaLabel}
-      />
     </div>
   );
 }

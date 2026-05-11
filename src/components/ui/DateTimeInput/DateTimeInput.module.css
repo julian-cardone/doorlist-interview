@@ -1,0 +1,29 @@
+/* ── Wrapper ─────────────────────────────────────────────────────────────── */
+/* Parent className styles the outer clickable container. */
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Display text ───────────────────────────────────────────────────────── */
+/* Visible formatted date text. */
+.display {
+  color: var(--color-text);
+  font-size: 1.0625rem;
+  font-weight: 500;
+}
+
+.placeholder {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* ── Native input ───────────────────────────────────────────────────────── */
+/* Invisible input keeps native datetime picker behavior. */
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
