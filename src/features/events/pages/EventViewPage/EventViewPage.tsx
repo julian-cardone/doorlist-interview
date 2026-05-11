@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetEvent } from "../../hooks/useGetEvent";
 import type { EventViewModel } from "../../models/event.model";
-import { FloatingEmojis } from "../../components/FloatingEmojis/FloatingEmojis";
 
 export default function EventViewPage() {
   const { id } = useParams<{ id: string }>();
