@@ -12,3 +12,15 @@ export const EventFormSchema = z.object({
 });
 
 export type EventFormModel = z.infer<typeof EventFormSchema>;
+
+export type EventViewModel = {
+  id: string;
+  title: string;
+  startsAt: Date;
+  endsAt?: Date;
+  location?: string;
+  description?: string;
+  themeEmoji?: string;
+  coverImageUrl?: string;
+  hostNames: string[];
+};
