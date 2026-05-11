@@ -31,7 +31,7 @@ function formatDatetime(value: string): string {
 
 export function DateTimeInput({
   value,
-  placeholder = "Select date & time",
+  placeholder = "",
   className,
   displayClassName,
   ...props

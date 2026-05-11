@@ -148,21 +148,24 @@
 }
 
 .emptyImage {
-  width: 3rem;
+  width: 8.25rem;
   height: auto;
   margin-bottom: 0.25rem;
 }
 
 .emptyTitle {
   color: var(--color-text);
-  font-size: 0.9375rem;
+  font-size: 1.375rem;
   font-weight: 600;
+  font-family: var(--font-display);
+  line-height: 1.75rem;
+  padding: 0.4rem 0;
 }
 
 .emptySubtext {
-  max-width: 14rem;
   color: var(--color-text-muted);
-  font-size: 0.8rem;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
 }
 
 /* ── Photo grid ─────────────────────────────────────────────────────────── */

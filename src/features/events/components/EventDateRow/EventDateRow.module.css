@@ -1,7 +1,7 @@
 /* ── Container ──────────────────────────────────────────────────────────── */
 .container {
   width: 100%;
-  padding: 0.7rem 1.125rem;
+  padding: 1.1rem 1.125rem;
   border-radius: 0.875rem;
   background: var(--surface-glass);
   backdrop-filter: var(--blur-glass);

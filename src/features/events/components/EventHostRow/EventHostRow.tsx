@@ -7,6 +7,7 @@ import { MinusIcon } from "../../../../components/ui/icons/MinusIcon";
 import { cx } from "../../../../lib/cssUtils";
 import { GRADIENTS } from "../../../../lib/sampleData";
 import type { EventHostRowProps } from "./EventHostRowProps";
+import { Avatar } from "../../../../components/ui/Avatar/Avatar";
 
 function initials(name: string): string {
   const parts = name.trim().split(/\s+/);
@@ -95,7 +96,7 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
     <div className={styles.container}>
       <div className={styles.group}>
         <div className={styles.hostRow}>
-          <HostAvatar gradient={gradientFor(activeHost)} name={activeHost} />
+          <Avatar gradient={gradientFor(activeHost)} name={activeHost} />
           <span className={styles.hostName}>{activeHost}</span>
           <button
             type="button"
@@ -125,12 +126,12 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
             .filter(Boolean)
             .join(" ");
           return (
-            <button
+            <Avatar
               key={i}
-              type="button"
+              name={name}
+              gradient={gradientFor(name)}
               className={cls}
               style={{
-                background: gradientFor(name),
                 zIndex: isSelected ? hosts.length + 1 : hosts.length - i,
               }}
               aria-label={name}
@@ -141,13 +142,5 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
         })}
       </div>
     </div>
-  );
-}
-
-function HostAvatar({ gradient, name }: { gradient: string; name: string }) {
-  return (
-    <span className={styles.hostAvatar} style={{ background: gradient }}>
-      {initials(name)}
-    </span>
   );
 }

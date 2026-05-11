@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.7rem 1.125rem;
+  padding: 0.85rem 1.125rem;
   border-radius: 3rem;
   background: var(--surface-glass);
   backdrop-filter: var(--blur-glass);
