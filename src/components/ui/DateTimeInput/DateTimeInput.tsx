@@ -1,17 +1,14 @@
-import type { InputHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes } from "react";
 import { cx } from "../../../lib/cssUtils";
 import styles from "./DateTimeInput.module.css";
 
 type DateTimeInputProps = Omit<
-  InputHTMLAttributes<HTMLInputElement>,
-  "type" | "value" | "onChange"
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "value"
 > & {
   value: string;
   placeholder?: string;
-  className?: string;
   displayClassName?: string;
-  inputClassName?: string;
-  onChange: (value: string) => void;
 };
 
 function formatDatetime(value: string): string {
@@ -37,12 +34,10 @@ export function DateTimeInput({
   placeholder = "Select date & time",
   className,
   displayClassName,
-  inputClassName,
-  onChange,
   ...props
 }: DateTimeInputProps) {
   return (
-    <span className={cx(styles.wrapper, className)}>
+    <button type="button" className={cx(styles.wrapper, className)} {...props}>
       <span
         className={cx(
           styles.display,
@@ -52,14 +47,6 @@ export function DateTimeInput({
       >
         {value ? formatDatetime(value) : placeholder}
       </span>
-
-      <input
-        className={cx(styles.input, inputClassName)}
-        type="datetime-local"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        {...props}
-      />
-    </span>
+    </button>
   );
 }
