@@ -1,8 +1,19 @@
 :root {
+  /* ── Typography ───────────────────────────────────────────────────────── */
+  --font-body:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", sans-serif;
+
+  /* ── Text colors ──────────────────────────────────────────────────────── */
   --color-text: #1a1a1a;
   --color-text-strong: #111;
   --color-text-muted: #888;
+
+  /* ── Brand / accent colors ────────────────────────────────────────────── */
   --color-accent: #7c3aed;
+  --color-error: #e53e3e;
+
+  /* ── Gradients ────────────────────────────────────────────────────────── */
   --gradient-primary: linear-gradient(135deg, #c084fc, #818cf8, #60a5fa);
   --gradient-cover: linear-gradient(
     135deg,
@@ -11,5 +22,7 @@
     #fb923c 60%,
     #fbbf24 100%
   );
-  --required-asterisk-color: #e53e3e;
+
+  --surface-glass: rgba(80, 80, 80, 0.055);
+  --blur-glass: blur(0.75rem);
 }

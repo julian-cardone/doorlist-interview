@@ -2,20 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { Input } from "../../../../components/ui/Input/Input";
 import styles from "./EventHostRow.module.css";
 import { useHorizontalWheelScroll } from "../../../../hooks/useHorizontalWheelScroll";
-
-type EventHostRowProps = {
-  hosts: string[];
-  onAdd: (name: string) => void;
-  onRemove: (index: number) => void;
-};
-
-const GRADIENTS = [
-  "linear-gradient(135deg, #f472b6, #fb923c)",
-  "linear-gradient(135deg, #34d399, #60a5fa)",
-  "linear-gradient(135deg, #c084fc, #818cf8)",
-  "linear-gradient(135deg, #fb923c, #f59e0b)",
-  "linear-gradient(135deg, #60a5fa, #818cf8)",
-];
+import { PlusIcon } from "../../../../components/ui/icons/PlusIcon";
+import { MinusIcon } from "../../../../components/ui/icons/MinusIcon";
+import { cx } from "../../../../lib/cssUtils";
+import { GRADIENTS } from "../../../../lib/sampleData";
+import type { EventHostRowProps } from "./EventHostRowProps";
 
 function initials(name: string): string {
   const parts = name.trim().split(/\s+/);
@@ -120,7 +111,7 @@ export function EventHostRow({ hosts, onAdd, onRemove }: EventHostRowProps) {
       </div>
 
       <div
-        className={`${styles.stackRow} scrollX`}
+        className={cx(styles.stackRow, "scrollX")}
         ref={horizontalScrollRef}
         onWheel={handleHorizontalWheel}
       >
@@ -158,38 +149,5 @@ function HostAvatar({ gradient, name }: { gradient: string; name: string }) {
     <span className={styles.hostAvatar} style={{ background: gradient }}>
       {initials(name)}
     </span>
-  );
-}
-
-function PlusIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    >
-      <line x1="12" y1="5" x2="12" y2="19" />
-      <line x1="5" y1="12" x2="19" y2="12" />
-    </svg>
-  );
-}
-
-function MinusIcon() {
-  return (
-    <svg
-      width="10"
-      height="10"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    >
-      <line x1="5" y1="12" x2="19" y2="12" />
-    </svg>
   );
 }

@@ -1,6 +1,5 @@
-/* ── Wrapper ──────────────────────────────────────────────────────────────── */
+/* ── Wrapper ─────────────────────────────────────────────────────────────── */
 /* The wrapper owns layout. Only pill gets visual container styling. */
-
 .wrapper {
   width: 100%;
 }
@@ -9,37 +8,24 @@
   display: flex;
   align-items: center;
   gap: 0.7rem;
-
   padding: 0.7rem 1.125rem;
   border-radius: 3rem;
-
-  background: rgba(80, 80, 80, 0.055);
-  backdrop-filter: blur(0.75rem);
-  -webkit-backdrop-filter: blur(0.75rem);
+  background: var(--surface-glass);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
 }
 
-/* ── Prefix ───────────────────────────────────────────────────────────────── */
-/* Prefix appears before the input area, usually for icons/text in pill inputs. */
-
-.pillPrefix {
+/* ── Affix ──────────────────────────────────────────────────────────────── */
+/* Optional text/icon before or after the input. */
+.affix {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-
   color: var(--color-text-muted);
 }
 
-.pillSuffix {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-
-  color: var(--color-text-muted);
-}
-
-/* ── Input area ───────────────────────────────────────────────────────────── */
+/* ── Input area ─────────────────────────────────────────────────────────── */
 /* Positioning context for the real input and fake placeholder overlay. */
-
 .inputArea {
   position: relative;
   display: block;
@@ -47,35 +33,30 @@
   min-width: 0;
 }
 
-/* ── Input base ───────────────────────────────────────────────────────────── */
+/* ── Input base ─────────────────────────────────────────────────────────── */
 /* The real input controls behavior, form semantics, focus, and typed text. */
-
 .base {
   width: 100%;
-
   background: transparent;
   border: none;
   outline: none;
-
   color: var(--color-text);
   font-family: inherit;
 }
 
-/* Native placeholder is only used to power :placeholder-shown.
-   The visible placeholder is rendered by .placeholder so the asterisk can be red. */
+/* Native placeholder only powers :placeholder-shown.
+   The visible placeholder is .placeholder so the asterisk can be red. */
 .base::placeholder {
   color: transparent;
 }
 
-/* ── Fake placeholder ─────────────────────────────────────────────────────── */
-/* Must visually match the real input text size/line-height for each variant. */
-
+/* ── Fake placeholder ───────────────────────────────────────────────────── */
+/* Must share text variant classes with .base so placeholder and typed text match. */
 .placeholder {
   position: absolute;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-
   color: var(--color-text-muted);
   pointer-events: none;
   user-select: none;
@@ -90,13 +71,11 @@
 
 .requiredAsterisk {
   margin-left: 0.125rem;
-  color: var(--required-asterisk-color, var(--color-error));
+  color: var(--color-error);
 }
 
-/* ── Text variants ───────────────────────────────────────────────────────── */
-/* These classes apply to BOTH .base and .placeholder.
-   That keeps typed text and placeholder text perfectly aligned. */
-
+/* ── Text variants ──────────────────────────────────────────────────────── */
+/* Applied to BOTH .base and .placeholder to keep visual alignment identical. */
 .titleInput {
   font-size: 2.125rem;
   line-height: 2.5625rem;

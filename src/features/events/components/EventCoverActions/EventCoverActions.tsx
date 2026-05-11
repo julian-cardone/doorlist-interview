@@ -1,4 +1,19 @@
+import { ShareIcon } from "../../../../components/ui/icons/ShareIcon";
+import { cx } from "../../../../lib/cssUtils";
 import styles from "./EventCoverActions.module.css";
+
+const ACTIONS = [
+  {
+    label: "RSVP",
+    icon: "🔥",
+    className: styles.rsvpBtn,
+  },
+  {
+    label: "Invite",
+    icon: <ShareIcon />,
+    className: styles.inviteBtn,
+  },
+];
 
 export function EventCoverActions() {
   return (
@@ -6,47 +21,22 @@ export function EventCoverActions() {
       <div className={styles.coverImageBox}>
         <div className={styles.coverPlaceholder} />
       </div>
+
       <div className={styles.actions}>
-        <div className={styles.actionItem}>
-          <button
-            className={`${styles.actionBtn} ${styles.rsvpBtn}`}
-            aria-label="RSVP"
-          >
-            🔥
-          </button>
-          <span className={styles.actionLabel}>RSVP</span>
-        </div>
-        <div className={styles.actionItem}>
-          <button
-            className={`${styles.actionBtn} ${styles.inviteBtn}`}
-            aria-label="Invite"
-          >
-            <ShareIcon />
-          </button>
-          <span className={styles.actionLabel}>Invite</span>
-        </div>
+        {ACTIONS.map((action) => (
+          <div key={action.label} className={styles.actionItem}>
+            <button
+              type="button"
+              className={cx(styles.actionBtn, action.className)}
+              aria-label={action.label}
+            >
+              {action.icon}
+            </button>
+
+            <span className={styles.actionLabel}>{action.label}</span>
+          </div>
+        ))}
       </div>
     </div>
-  );
-}
-
-function ShareIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="18" cy="5" r="3" />
-      <circle cx="6" cy="12" r="3" />
-      <circle cx="18" cy="19" r="3" />
-      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-    </svg>
   );
 }

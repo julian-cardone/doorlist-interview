@@ -1,3 +1,4 @@
+/* ── Layout ─────────────────────────────────────────────────────────────── */
 .container {
   display: flex;
   flex-direction: column;
@@ -7,18 +8,11 @@
 
 .group {
   width: 100%;
-  background: rgba(80, 80, 80, 0.055);
-  backdrop-filter: blur(0.75rem);
-  -webkit-backdrop-filter: blur(0.75rem);
-  border-radius: 1rem;
   overflow: hidden;
-}
-
-.hostRow {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.7rem 1.125rem;
+  border-radius: 1rem;
+  background: var(--surface-glass);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
 }
 
 .groupDivider {
@@ -26,49 +20,40 @@
   background: rgba(0, 0, 0, 0.07);
 }
 
+/* ── Host rows ──────────────────────────────────────────────────────────── */
+.hostRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1.125rem;
+}
+
+.hostName {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--color-text);
+  font-size: 1.0625rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Avatar ─────────────────────────────────────────────────────────────── */
 .hostAvatar {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
   color: #fff;
   font-size: 0.6875rem;
   font-weight: 700;
-  flex-shrink: 0;
   letter-spacing: 0.02em;
 }
 
-.hostName {
-  flex: 1;
-  min-width: 0;
-  font-size: 1.0625rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--color-text);
-}
-
-.removeCircleBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 50%;
-  border: none;
-  background: rgba(0, 0, 0, 0.12);
-  color: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.15s;
-}
-
-.removeCircleBtn:hover {
-  background: rgba(0, 0, 0, 0.2);
-}
-
+/* ── Add host input ─────────────────────────────────────────────────────── */
 .addPrefix {
   display: flex;
   align-items: center;
@@ -79,20 +64,39 @@
 .addInput {
   flex: 1;
   min-width: 0;
-  background: none;
   border: none;
   outline: none;
-  font-size: 1.0625rem;
+  background: none;
   color: var(--color-text);
   font-family: inherit;
+  font-size: 1.0625rem;
 }
 
 .addInput::placeholder {
   color: var(--color-text-muted);
 }
 
-/* ── Collapsed mode: avatar stack ──────────────────────────────────────────── */
+/* ── Remove button ──────────────────────────────────────────────────────── */
+.removeCircleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
 
+.removeCircleBtn:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* ── Collapsed avatar stack ─────────────────────────────────────────────── */
 .stackRow {
   display: flex;
   align-items: center;
@@ -115,13 +119,13 @@
 
 .stackAvatar {
   display: block;
+  flex-shrink: 0;
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 50%;
-  flex-shrink: 0;
   border: 0.125rem solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
   cursor: pointer;
-  transition: transform 0.15s;
+  transition: transform 0.15s ease;
 }
 
 .stackAvatarOffset {

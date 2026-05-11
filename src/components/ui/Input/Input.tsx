@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
+import { cx } from "../../../lib/cssUtils";
 import styles from "./Input.module.css";
 
 type InputVariant = "title" | "field" | "pill";
@@ -9,12 +10,8 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   textSuffix?: ReactNode;
 };
 
-function cx(...classes: Array<string | undefined | false>) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export function Input({
-  variant = "field",
+  variant,
   className,
   required,
   textPrefix,
@@ -22,6 +19,8 @@ export function Input({
   placeholder,
   ...props
 }: Props) {
+  const textVariantClass = styles[`${variant}Input`];
+
   return (
     <div
       className={cx(
@@ -30,24 +29,24 @@ export function Input({
         className,
       )}
     >
-      {textPrefix && <span className={styles.pillPrefix}>{textPrefix}</span>}
+      {textPrefix && <span className={styles.affix}>{textPrefix}</span>}
 
       <span className={styles.inputArea}>
         <input
-          className={cx(styles.base, styles[`${variant}Input`])}
+          className={cx(styles.base, textVariantClass)}
           placeholder={placeholder ? " " : undefined}
           {...props}
         />
 
         {placeholder && (
-          <span className={cx(styles.placeholder, styles[`${variant}Input`])}>
+          <span className={cx(styles.placeholder, textVariantClass)}>
             {placeholder}
             {required && <span className={styles.requiredAsterisk}>*</span>}
           </span>
         )}
       </span>
 
-      {textSuffix && <span className={styles.pillSuffix}>{textSuffix}</span>}
+      {textSuffix && <span className={styles.affix}>{textSuffix}</span>}
     </div>
   );
 }

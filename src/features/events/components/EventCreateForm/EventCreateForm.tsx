@@ -10,14 +10,11 @@ import { EventHostRow } from "../EventHostRow/EventHostRow";
 import styles from "./EventCreateForm.module.css";
 import { EventFormSchema, type EventFormModel } from "../../models/event.model";
 import { useHorizontalWheelScroll } from "../../../../hooks/useHorizontalWheelScroll";
-
-const REACTION_EMOJIS = ["", "❤️", "🎉", "🔥", "✨", "✔️", "👀", "💀", "😁"];
-
-type EventCreateFormProps = {
-  onSubmit: (data: EventFormModel) => void;
-  isSubmitting?: boolean;
-  coverImageUrl?: string;
-};
+import { NotesIcon } from "../../../../components/ui/icons/NotesIcon";
+import { cx } from "../../../../lib/cssUtils";
+import { REACTION_EMOJIS } from "../../../../lib/sampleData";
+import type { EventCreateFormProps } from "./EventCreateFormProps";
+import { LocationIcon } from "../../../../components/ui/icons/LocationIcon";
 
 export function EventCreateForm({
   onSubmit,
@@ -55,18 +52,6 @@ export function EventCreateForm({
   useEffect(() => {
     setValue("coverImageUrl", coverImageUrl, { shouldValidate: false });
   }, [coverImageUrl, setValue]);
-
-  useEffect(() => {
-    // temporary set start and end dates for testing
-    const now = new Date();
-    const inOneHour = new Date(now.getTime() + 60 * 60 * 1000);
-    setValue("startAt", now.toISOString().slice(0, 16), {
-      shouldValidate: true,
-    });
-    setValue("endAt", inOneHour.toISOString().slice(0, 16), {
-      shouldValidate: true,
-    });
-  }, [setValue]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -138,7 +123,7 @@ export function EventCreateForm({
 
       <div className={styles.bottomBar}>
         <div
-          className={`${styles.reactions} scrollX`}
+          className={cx(styles.reactions, "scrollX")}
           ref={horizontalScrollRef}
           onWheel={handleHorizontalWheel}
         >
@@ -167,43 +152,5 @@ export function EventCreateForm({
         {isSubmitting ? "Creating…" : "Create Event"}
       </Button>
     </form>
-  );
-}
-
-function LocationIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-      <circle cx="12" cy="10" r="3" />
-    </svg>
-  );
-}
-
-function NotesIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="17" y1="10" x2="3" y2="10" />
-      <line x1="21" y1="6" x2="3" y2="6" />
-      <line x1="21" y1="14" x2="3" y2="14" />
-      <line x1="17" y1="18" x2="3" y2="18" />
-    </svg>
   );
 }

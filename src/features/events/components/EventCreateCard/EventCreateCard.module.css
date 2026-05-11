@@ -2,21 +2,12 @@
   position: relative;
   z-index: 1;
   display: flex;
-  flex: 1;
-  min-width: 0;
   gap: 2rem;
-}
-
-.formArea {
-  display: flex;
-  flex-direction: column;
   flex: 1;
   min-width: 0;
 }
 
-.pickerArea {
-  display: flex;
-  flex-direction: column;
+.section {
   flex: 1;
   min-width: 0;
 }

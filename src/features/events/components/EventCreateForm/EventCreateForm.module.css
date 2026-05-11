@@ -1,8 +1,9 @@
+/* ── Form layout ─────────────────────────────────────────────────────────── */
 .form {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 1rem;
-  flex: 1;
 }
 
 .rows {
@@ -17,24 +18,19 @@
   padding: 0.4rem 0;
 }
 
-.rowDivider {
-  height: 0.0625rem;
-  background: rgba(0, 0, 0, 0.08);
-}
-
 .rowIcon {
   display: flex;
   align-items: center;
-  color: var(--color-text-muted);
   flex-shrink: 0;
+  color: var(--color-text-muted);
 }
 
+/* ── Bottom actions ─────────────────────────────────────────────────────── */
 .bottomBar {
-  display: flex;
-  flex-direction: column;
   width: 102%;
 }
 
+/* ── Reaction picker ────────────────────────────────────────────────────── */
 .reactions {
   display: flex;
   gap: 0.5rem;
@@ -56,18 +52,18 @@
 }
 
 .reactionBtn {
-  width: 3.75rem;
-  height: 3.75rem;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  background: rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  font-size: 1.8rem;
   display: flex;
-  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s;
+  flex-shrink: 0;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
 }
 
 .reactionBtn:hover {
@@ -75,12 +71,14 @@
 }
 
 .reactionBtnSelected {
-  border: 2px solid rgba(0, 0, 0, 0.35);
+  border-color: rgba(0, 0, 0, 0.35);
+  border-width: 2px;
 }
 
+/* ── Validation ─────────────────────────────────────────────────────────── */
 .fieldError {
   display: block;
-  font-size: 0.75rem;
-  color: #e53e3e;
   margin-top: 0.25rem;
+  color: var(--color-error);
+  font-size: 0.75rem;
 }

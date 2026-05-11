@@ -1,24 +1,24 @@
-/* ── Drawer ───────────────────────────────────────────────────────────────── */
-/* Reusable sliding panel. Parent controls open/closed state. */
-
+/* ── Drawer ─────────────────────────────────────────────────────────────── */
+/* Reusable sliding side panel. Parent controls open/closed state. */
 .drawer {
   position: absolute;
   top: 0;
   right: 0;
   z-index: 20;
-
-  height: 100%;
   width: 26rem;
-
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   transform: translateX(100%);
   transition: transform 200ms ease;
-
+  pointer-events: none;
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(2rem);
   -webkit-backdrop-filter: blur(2rem);
 }
 
-/* Visible state. */
+/* visible state */
 .open {
   transform: translateX(0);
+  pointer-events: auto;
 }
