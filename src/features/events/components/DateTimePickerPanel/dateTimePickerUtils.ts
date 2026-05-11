@@ -86,10 +86,7 @@ export function formatDatetime(value: string): string {
   ].join(" ");
 }
 
-export function formatDateRange(
-  startDate: Date,
-  endDate?: Date,
-): string {
+export function formatDateRange(startDate: Date, endDate?: Date): string {
   const startOptions: Intl.DateTimeFormatOptions = {
     weekday: "long",
     month: "long",
@@ -103,10 +100,7 @@ export function formatDateRange(
   return startDate.toLocaleDateString("en-US", startOptions);
 }
 
-export function formatTimeRange(
-  startTime: Date,
-  endTime?: Date,
-): string {
+export function formatTimeRange(startTime: Date, endTime?: Date): string {
   const timeOptions: Intl.DateTimeFormatOptions = {
     hour: "numeric",
     minute: "2-digit",
@@ -140,4 +134,3 @@ export function formatTimeRangeFromString(
   const endDate = endDateStr ? new Date(endDateStr) : undefined;
   return formatTimeRange(startDate, endDate);
 }
-
