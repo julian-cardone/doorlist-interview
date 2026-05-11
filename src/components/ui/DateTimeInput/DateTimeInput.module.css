@@ -1,0 +1,23 @@
+/* ── Wrapper ─────────────────────────────────────────────────────────────── */
+/* Parent className styles the root clickable container. */
+.wrapper {
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  text-align: right;
+  cursor: pointer;
+}
+
+/* ── Display text ───────────────────────────────────────────────────────── */
+/* Visible formatted date text. */
+.display {
+  color: var(--color-text);
+  font-size: 1.0625rem;
+  font-weight: 500;
+}
+
+.placeholder {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}

@@ -17,8 +17,8 @@
   z-index: 0;
   background-size: cover;
   background-position: center;
-  filter: blur(6rem) brightness(1.6);
-  opacity: 0.6;
+  filter: blur(3rem) brightness(1.2);
+  opacity: 0.75;
   /* prevents blur edge fringe */
   transform: scale(1.15);
 }
@@ -27,7 +27,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 /* ── Foreground content ──────────────────────────────────────────────────── */

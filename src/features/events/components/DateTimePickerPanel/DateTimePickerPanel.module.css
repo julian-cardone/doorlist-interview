@@ -1,0 +1,296 @@
+.panel {
+  box-sizing: border-box;
+  width: min(26rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(2rem);
+  -webkit-backdrop-filter: blur(2rem);
+  box-shadow:
+    0 2rem 5rem rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.02rem;
+}
+
+.closeButton {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(80, 80, 80, 0.08);
+  color: var(--color-text-muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* ── Tabs ───────────────────────────────────────────────────────────────── */
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.35rem;
+  padding: 0.35rem;
+  margin-bottom: 1rem;
+  border-radius: 999px;
+  background: rgba(80, 80, 80, 0.07);
+}
+
+.tab {
+  padding: 0.65rem 1rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.activeTab {
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--color-accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0.4rem 1rem rgba(124, 58, 237, 0.12);
+}
+
+.activeTab:hover {
+  cursor: default;
+}
+
+/* ── Calendar ───────────────────────────────────────────────────────────── */
+.calendar {
+  padding: 1rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.monthHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+  color: var(--color-text);
+  font-weight: 800;
+}
+
+.monthButton {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(80, 80, 80, 0.07);
+  color: var(--color-text);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.dayGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.35rem;
+}
+
+.dayLabel {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.dateButton {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 0.85rem;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dateButton:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.selectedDate {
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 0.5rem 1.4rem rgba(124, 58, 237, 0.32);
+}
+
+.selectedDate:hover {
+  background: var(--color-accent);
+  cursor: default;
+}
+
+/* ── Required asterisk ──────────────────────────────────────────────────── */
+.required {
+  margin-left: 0.15rem;
+  color: var(--color-error);
+}
+
+/* ── Time stepper ────────────────────────────────────────────────────────── */
+.timeSection {
+  margin-top: 1rem;
+}
+
+.sectionLabel {
+  margin: 0 0 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.timePicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.timeUnit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.timeArrow {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.6rem;
+  cursor: pointer;
+}
+
+.timeArrow:hover {
+  background: rgba(255, 255, 255, 0.45);
+  color: var(--color-text);
+}
+
+.timeValueDisplay {
+  min-width: 2.5rem;
+  color: var(--color-text);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: -0.04em;
+}
+
+.colon {
+  color: var(--color-text-muted);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.1rem;
+}
+
+.periodToggle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-left: 0.35rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: rgba(80, 80, 80, 0.07);
+}
+
+.periodButton {
+  padding: 0.45rem 0.7rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.activePeriod {
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--color-accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0.4rem 1rem rgba(124, 58, 237, 0.12);
+}
+
+.activePeriod:hover {
+  cursor: default;
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.cancelButton,
+.saveButton {
+  padding: 0.75rem 1.1rem;
+  border: none;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background: rgba(80, 80, 80, 0.08);
+  color: var(--color-text-muted);
+}
+
+.saveButton {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: 0 0.6rem 1.4rem rgba(124, 58, 237, 0.25);
+}

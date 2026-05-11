@@ -1,0 +1,28 @@
+/* ── Backdrop ────────────────────────────────────────────────────────────── */
+/* Covers the parent/viewport and catches outside clicks. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(20, 20, 30, 0.35);
+  backdrop-filter: blur(0.75rem);
+  -webkit-backdrop-filter: blur(0.75rem);
+}
+
+/* ── Modal ──────────────────────────────────────────────────────────────── */
+/* Parent className styles the modal container/root. */
+.modal {
+  width: min(32rem, 100%);
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(2rem);
+  -webkit-backdrop-filter: blur(2rem);
+  box-shadow:
+    0 2rem 5rem rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+}

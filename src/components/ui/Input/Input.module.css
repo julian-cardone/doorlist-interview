@@ -82,6 +82,11 @@
   font-weight: 700;
 }
 
+/* Real typed title text only */
+.base.titleInput {
+  font-family: var(--font-display);
+}
+
 .fieldInput {
   font-size: 0.875rem;
 }
