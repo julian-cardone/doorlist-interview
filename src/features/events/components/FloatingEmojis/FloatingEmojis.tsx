@@ -9,8 +9,8 @@ const FRICTION = 0.999;
 const COLLISION_RADIUS = 1.5;
 const INTERACTION_RADIUS = 200;
 const IMPULSE_SCALE = 0.4;
-const OMEGA_FLOOR = 0.05;
-const OMEGA_MAX = 1.0;
+const OMEGA_FLOOR = 0.15;
+const OMEGA_MAX = 1.5;
 const OMEGA_FRICTION = 0.99;
 const OMEGA_BOOST_SCALE = 0.3;
 

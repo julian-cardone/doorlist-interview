@@ -27,8 +27,10 @@ export function EventDateRow({
     setActiveField(null);
   }
 
-  function handleSave(start: string, end: string | null) {
-    onStartAtChange(start);
+  function handleSave(start: string | null, end: string | null) {
+    if (start !== null) {
+      onStartAtChange(start);
+    }
 
     if (end !== null) {
       onEndAtChange(end);
@@ -57,21 +59,29 @@ export function EventDateRow({
             <div className={styles.row}>
               <span className={styles.label}>Starts</span>
 
-              <DateTimeInput
-                value={startAt}
-                placeholder="Select date & time"
-                aria-label="Start date and time"
-                onClick={() => setActiveField("start")}
-              />
+              {startAt ? (
+                <DateTimeInput
+                  value={startAt}
+                  aria-label="Start date and time"
+                  onClick={() => setActiveField("start")}
+                />
+              ) : (
+                <Button
+                  variant="link"
+                  type="button"
+                  onClick={() => setActiveField("start")}
+                >
+                  Add Start-Time
+                </Button>
+              )}
             </div>
 
             <div className={styles.row}>
               <span className={styles.label}>Ends</span>
 
-              {showEnd ? (
+              {showEnd && endAt ? (
                 <DateTimeInput
-                  value={endAt ?? ""}
-                  placeholder="Select date & time"
+                  value={endAt}
                   aria-label="End date and time"
                   onClick={() => setActiveField("end")}
                 />

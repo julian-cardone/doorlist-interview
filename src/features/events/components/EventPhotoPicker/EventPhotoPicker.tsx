@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { cx } from "../../../../lib/cssUtils";
 import styles from "./EventPhotoPicker.module.css";
-import { ChevronLeftIcon } from "../../../../components/ui/icons/ChevronLeftIcon";
+import { ChevronRightIcon } from "../../../../components/ui/icons/ChevronLeftIcon";
 import { PHOTO_SETS } from "../../../../lib/sampleData";
 import type { EventPhotoPickerProps } from "./EventPhotoPickerProps";
 
@@ -31,7 +31,7 @@ export function EventPhotoPicker({
     <section className={styles.photoPicker}>
       <header className={styles.header}>
         <button className={styles.backButton} type="button" onClick={onBack}>
-          <ChevronLeftIcon />
+          <ChevronRightIcon />
         </button>
 
         <h2 className={styles.title}>Event Cover</h2>
