@@ -1,39 +1,50 @@
 .page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   height: 100dvh;
+  padding: 7rem 15rem;
+  overflow: hidden;
   background-image: url("/gradient-bg.png");
   background-size: cover;
   background-position: center;
-  display: flex;
-  flex-direction: column;
-  padding: 7rem 15rem;
-  position: relative;
-  overflow: hidden;
 }
 
+/* ── Background ──────────────────────────────────────────────────────────── */
 .bgImage {
   position: absolute;
   inset: 0;
+  z-index: 0;
   background-size: cover;
   background-position: center;
   filter: blur(6rem) brightness(1.6);
   opacity: 0.6;
-  transform: scale(1.15); /* prevents blur edge fringe */
-  z-index: 0;
+  /* prevents blur edge fringe */
+  transform: scale(1.15);
 }
 
 .bgOverlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: rgba(255, 255, 255, 0.3);
-  z-index: 0;
 }
 
+/* ── Foreground content ──────────────────────────────────────────────────── */
+.cardLayer {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Drawer ─────────────────────────────────────────────────────────────── */
 .drawerBackdrop {
   position: absolute;
   inset: 0;
   z-index: 19;
+  background: transparent;
 }
 
 .photoDrawer {
+  width: 26rem;
   max-width: 100%;
 }

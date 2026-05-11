@@ -1,12 +1,12 @@
-import { EventCreateForm } from "../EventCreateForm/EventCreateForm";
 import { EventCoverPicker } from "../EventCoverPicker/EventCoverPicker";
+import { EventCreateForm } from "../EventCreateForm/EventCreateForm";
 import type { EventFormModel } from "../../models/event.model";
 import styles from "./EventCreateCard.module.css";
 
 type EventCreateCardProps = {
   onSubmit: (data: EventFormModel) => void;
   isSubmitting?: boolean;
-  coverImageUrl?: string;
+  coverImageUrl: string;
   onSelectCoverImage: (url: string) => void;
   onOpenPhotoPicker: () => void;
 };
@@ -20,7 +20,7 @@ export function EventCreateCard({
 }: EventCreateCardProps) {
   return (
     <div className={styles.card}>
-      <div className={styles.formArea}>
+      <div className={styles.section}>
         <EventCreateForm
           onSubmit={onSubmit}
           isSubmitting={isSubmitting}
@@ -28,7 +28,7 @@ export function EventCreateCard({
         />
       </div>
 
-      <div className={styles.pickerArea}>
+      <div className={styles.section}>
         <EventCoverPicker
           selectedUrl={coverImageUrl}
           onSelect={onSelectCoverImage}

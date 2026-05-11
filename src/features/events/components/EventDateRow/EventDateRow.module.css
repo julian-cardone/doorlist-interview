@@ -1,10 +1,11 @@
+/* ── Container ──────────────────────────────────────────────────────────── */
 .container {
   width: 100%;
-  background: rgba(80, 80, 80, 0.055);
-  backdrop-filter: blur(0.75rem);
-  -webkit-backdrop-filter: blur(0.75rem);
-  border-radius: 0.875rem;
   padding: 0.7rem 1.125rem;
+  border-radius: 0.875rem;
+  background: var(--surface-glass);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
 }
 
 .inner {
@@ -12,33 +13,35 @@
   gap: 0.75rem;
 }
 
+/* ── Timeline ───────────────────────────────────────────────────────────── */
 .timeline {
-  width: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 1rem;
   padding-top: 0.125rem;
 }
 
 .dot {
+  flex-shrink: 0;
   width: 0.4375rem;
   height: 0.4375rem;
-  border-radius: 50%;
   border: 0.0625rem solid var(--color-text-muted);
+  border-radius: 50%;
   background: var(--color-text-muted);
-  flex-shrink: 0;
 }
 
 .connector {
   flex: 1;
   width: 0;
-  border-left: 0.0625rem dashed var(--color-text-muted);
   margin: 0.1875rem 0;
+  border-left: 0.0625rem dashed var(--color-text-muted);
 }
 
+/* ── Rows ───────────────────────────────────────────────────────────────── */
 .rows {
-  flex: 1;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 1.8rem;
 }
@@ -50,10 +53,11 @@
 }
 
 .label {
-  font-size: 1.0625rem;
   color: var(--color-text-muted);
+  font-size: 1.0625rem;
 }
 
+/* ── Date input ─────────────────────────────────────────────────────────── */
 .dateValue {
   position: relative;
 }
@@ -71,7 +75,7 @@
 .dateInput {
   position: absolute;
   inset: 0;
+  width: 100%;
   opacity: 0;
   cursor: pointer;
-  width: 100%;
 }

@@ -1,18 +1,21 @@
+@import "./variables.css";
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-body);
 }
 
-/* ── Global vertical scrollbar styling ──────────────────────────────────── */
-/* Applies to all vertical scrollbars by default. */
+/* ── Scrollbar tokens ───────────────────────────────────────────────────── */
+/* Shared scrollbar sizing/colors for global + utility scroll regions. */
 :root {
   --scrollbar-size: 0rem;
-
   --scrollbar-thumb: rgba(80, 80, 80, 0.28);
-
   --scrollbar-thumb-hover: rgba(80, 80, 80, 0.45);
 }
 
+/* ── Global scrollbar styling ───────────────────────────────────────────── */
+/* Vertical + default scrollbar appearance across the app.
+   Scrollbars are visually hidden until hover. */
 /* Firefox */
 * {
   scrollbar-width: thin;
@@ -47,13 +50,13 @@ body {
   background: var(--scrollbar-thumb-hover);
 }
 
-/* ── Horizontal scrolling ────────────────────────────────────────────────── */
-/* Scrollbar always takes space, but is visually hidden until hover. */
+/* ── Scroll utilities ───────────────────────────────────────────────────── */
+/* Reusable directional overflow helpers. */
 .scrollX {
   overflow-x: auto;
   overflow-y: hidden;
 
+  /* reserve scrollbar space to prevent layout shift */
   padding-bottom: var(--scrollbar-size);
-
   scrollbar-gutter: stable;
 }
